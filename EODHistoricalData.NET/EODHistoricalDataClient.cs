@@ -18,6 +18,7 @@ namespace EODHistoricalData.NET
         SplitDividendClient _splitDividendClient;
         OptionsDataClient _optionsClient;
         CalendarDataClient _calenderClient;
+        FundamentalDataClient _fundamentalDataClient;
 
         bool _useProxy = false;
 
@@ -116,6 +117,28 @@ namespace EODHistoricalData.NET
                 _calenderClient = new CalendarDataClient(_apiToken, _useProxy);
 
             return _calenderClient.GetIncomingSplits(startDate, endDate, symbols);
+        }
+
+        public FundamentalStock GetFundamentalStock(string symbol)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetFundamentalStock(symbol);
+        }
+        public FundamentalFund GetFundamentalFund(string symbol)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetFundamentalFund(symbol);
+        }
+        public FundamentalETF GetFundamentalETF(string symbol)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetFundamentalETF(symbol);
         }
     }
 }

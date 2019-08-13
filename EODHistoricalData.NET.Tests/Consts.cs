@@ -8,6 +8,8 @@ namespace EODHistoricalData.NET.Tests
     {
         internal const string ApiToken = "OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX";
         internal const string TestSymbol = "AAPL.US";
+        internal const string TestETF = "VTI.US";
+        internal const string TestFund = "SWPPX.US";
         internal static readonly DateTime StartDate = DateTime.Now.AddYears(-10).AddDays(-1).Date;
         internal static readonly DateTime EndDate = DateTime.Now.AddYears(-5).AddDays(-1).Date;
         internal static readonly DateTime OptionsStartDate = DateTime.Now.AddYears(-1).AddDays(-2).Date;
