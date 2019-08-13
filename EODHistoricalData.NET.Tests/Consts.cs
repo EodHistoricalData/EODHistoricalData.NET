@@ -15,5 +15,6 @@ namespace EODHistoricalData.NET.Tests
         internal static readonly DateTime OptionsTradeStartDate = new DateTime(2018, 3, 29);
         internal static readonly DateTime OptionsTradeEndDate = new DateTime(2019, 7, 1);
         internal static readonly string[] MultipleTestSymbol = new[] { TestSymbol, "VTI", "EUR.FOREX" };
+        internal static readonly string[] MultipleSymbolEarnings = new[] { "SNPS.US", "MDI.TO" };
     }
 }

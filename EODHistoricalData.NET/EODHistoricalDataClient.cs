@@ -17,6 +17,7 @@ namespace EODHistoricalData.NET
         StockPriceDataClient _stockPriceDataClient;
         SplitDividendClient _splitDividendClient;
         OptionsDataClient _optionsClient;
+        CalendarDataClient _calenderClient;
 
         bool _useProxy = false;
 
@@ -91,6 +92,30 @@ namespace EODHistoricalData.NET
                 _optionsClient = new OptionsDataClient(_apiToken, _useProxy);
 
             return _optionsClient.GetOptions(symbol, startDate, endDate);
+        }
+
+        public Earnings GetEarnings(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
+        {
+            if (_calenderClient == null)
+                _calenderClient = new CalendarDataClient(_apiToken, _useProxy);
+
+            return _calenderClient.GetEarnings(startDate, endDate, symbols);
+        }
+
+        public Ipos GetIpos(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
+        {
+            if (_calenderClient == null)
+                _calenderClient = new CalendarDataClient(_apiToken, _useProxy);
+
+            return _calenderClient.GetIpos(startDate, endDate, symbols);
+        }
+
+        public IncomingSplits GetIncomingSplits(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
+        {
+            if (_calenderClient == null)
+                _calenderClient = new CalendarDataClient(_apiToken, _useProxy);
+
+            return _calenderClient.GetIncomingSplits(startDate, endDate, symbols);
         }
     }
 }
