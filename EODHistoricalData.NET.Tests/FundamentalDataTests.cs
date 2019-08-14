@@ -39,5 +39,14 @@ namespace EODHistoricalData.NET.Tests
             IndexComposition index = client.GetIndexComposition(Consts.TestIndex);
             Assert.IsNotNull(index);
         }
+
+        [TestMethod]
+        public void exchange_instruments_returns_data()
+        {
+            EODHistoricalDataClient client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            List<Instrument> instruments = client.GetExchangeInstruments(Consts.Exchange);
+            Assert.IsNotNull(instruments);
+            Assert.IsNotNull(instruments.Count > 1000);
+        }
     }
 }

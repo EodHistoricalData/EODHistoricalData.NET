@@ -148,5 +148,13 @@ namespace EODHistoricalData.NET
 
             return _fundamentalDataClient.GetIndexComposition(symbol);
         }
+
+        public List<Instrument> GetExchangeInstruments(string exchangeCode)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetExchangeInstruments(exchangeCode);
+        }
     }
 }
