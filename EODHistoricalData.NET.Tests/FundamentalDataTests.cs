@@ -31,5 +31,13 @@ namespace EODHistoricalData.NET.Tests
             FundamentalFund fundamental = client.GetFundamentalFund(Consts.TestFund);
             Assert.IsNotNull(fundamental);
         }
+
+        [TestMethod]
+        public void index_composition_returns_data()
+        {
+            EODHistoricalDataClient client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            IndexComposition index = client.GetIndexComposition(Consts.TestIndex);
+            Assert.IsNotNull(index);
+        }
     }
 }

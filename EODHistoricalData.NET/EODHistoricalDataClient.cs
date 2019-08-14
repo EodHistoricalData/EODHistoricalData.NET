@@ -140,5 +140,13 @@ namespace EODHistoricalData.NET
 
             return _fundamentalDataClient.GetFundamentalETF(symbol);
         }
+
+        public IndexComposition GetIndexComposition(string symbol)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetIndexComposition(symbol);
+        }
     }
 }

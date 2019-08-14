@@ -40,5 +40,15 @@ namespace EODHistoricalData.NET
         {
             return FundamentalFund.FromJson(response.Content.ReadAsStringAsync().Result);
         }
+
+        internal IndexComposition GetIndexComposition(string symbol)
+        {
+            return ExecuteQuery(string.Format(FundamentalUrl, symbol, _apiToken), GetIndexCompositionFromResponse);
+        }
+
+        private IndexComposition GetIndexCompositionFromResponse(HttpResponseMessage response)
+        {
+            return IndexComposition.FromJson(response.Content.ReadAsStringAsync().Result);
+        }
     }
 }
