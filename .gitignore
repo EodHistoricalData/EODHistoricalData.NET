@@ -4,3 +4,4 @@ packages/
 *.user
 *.userprefs
 *.suo
+.vs/
