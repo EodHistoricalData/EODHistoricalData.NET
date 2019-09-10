@@ -20,16 +20,16 @@ namespace EODHistoricalData.NET
         public DateTimeOffset Date { get; set; }
 
         [JsonProperty("open")]
-        public long Open { get; set; }
+        public double Open { get; set; }
 
         [JsonProperty("high")]
-        public long High { get; set; }
+        public double High { get; set; }
 
         [JsonProperty("low")]
-        public long Low { get; set; }
+        public double Low { get; set; }
 
         [JsonProperty("close")]
-        public long Close { get; set; }
+        public double Close { get; set; }
 
         [JsonProperty("adjusted_close")]
         public double AdjustedClose { get; set; }
