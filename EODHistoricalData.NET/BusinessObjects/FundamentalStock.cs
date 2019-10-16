@@ -51,20 +51,31 @@ namespace EODHistoricalData.NET
         [JsonProperty("History")]
         public Dictionary<string, History> History { get; set; }
 
+        [JsonProperty("Annual")]
+        public Dictionary<string, Annual> Annual { get; set; }
+
         [JsonProperty("Trend")]
         public Dictionary<string, Dictionary<string, string>> Trend { get; set; }
     }
 
-    public partial class History
+    public partial class EarningsDetailsBase
     {
         [JsonProperty("date")]
         public DateTimeOffset Date { get; set; }
 
-        [JsonProperty("reportDate")]
-        public DateTimeOffset? ReportDate { get; set; }
-
         [JsonProperty("epsActual")]
         public string EpsActual { get; set; }
+    }
+
+    public class Annual : EarningsDetailsBase
+    {
+
+    }
+
+    public partial class History : EarningsDetailsBase
+    {
+        [JsonProperty("reportDate")]
+        public DateTimeOffset? ReportDate { get; set; }
 
         [JsonProperty("epsEstimate")]
         public string EpsEstimate { get; set; }
@@ -94,7 +105,7 @@ namespace EODHistoricalData.NET
         public string CurrencySymbol { get; set; }
 
         [JsonProperty("quarterly")]
-        public Dictionary<string, Dictionary<string, string>> Quarterly { get; set; }
+        public Dictionary<string, BalanceSheetDetails> Quarterly { get; set; }
 
         [JsonProperty("yearly")]
         public Dictionary<string, Dictionary<string, string>> Yearly { get; set; }
@@ -205,13 +216,13 @@ namespace EODHistoricalData.NET
     public partial class OutstandingShares
     {
         [JsonProperty("annual")]
-        public Dictionary<string, Annual> Annual { get; set; }
+        public Dictionary<string, EarningAnnual> Annual { get; set; }
 
         [JsonProperty("quarterly")]
-        public Dictionary<string, Annual> Quarterly { get; set; }
+        public Dictionary<string, EarningAnnual> Quarterly { get; set; }
     }
 
-    public partial class Annual
+    public partial class EarningAnnual
     {
         [JsonProperty("date")]
         public string Date { get; set; }
