@@ -121,11 +121,18 @@ namespace EODHistoricalData.NET
 
         public FundamentalStock GetFundamentalStock(string symbol)
         {
+            return GetFundamentalStock((new[] { symbol }).ToList()).FirstOrDefault();
+        }
+
+        public IList<FundamentalStock> GetFundamentalStock(IList<string> symbols)
+        {
             if (_fundamentalDataClient == null)
                 _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
 
-            return _fundamentalDataClient.GetFundamentalStock(symbol);
+            return symbols.Select(x => _fundamentalDataClient.GetFundamentalStock(x)).ToList();
         }
+
+
         public FundamentalFund GetFundamentalFund(string symbol)
         {
             if (_fundamentalDataClient == null)
