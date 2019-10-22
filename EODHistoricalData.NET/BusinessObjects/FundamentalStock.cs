@@ -262,16 +262,16 @@ namespace EODHistoricalData.NET
         public decimal? PayoutRatio { get; set; }
 
         [JsonProperty("DividendDate")]
-        public DateTimeOffset DividendDate { get; set; }
+        public DateTimeOffset? DividendDate { get; set; }
 
         [JsonProperty("ExDividendDate")]
-        public DateTimeOffset ExDividendDate { get; set; }
+        public DateTimeOffset? ExDividendDate { get; set; }
 
         [JsonProperty("LastSplitFactor")]
         public string LastSplitFactor { get; set; }
 
         [JsonProperty("LastSplitDate")]
-        public DateTimeOffset LastSplitDate { get; set; }
+        public DateTimeOffset? LastSplitDate { get; set; }
 
         [JsonProperty("NumberDividendsByYear")]
         public Dictionary<string, NumberDividendsByYear> NumberDividendsByYear { get; set; }
@@ -309,7 +309,11 @@ namespace EODHistoricalData.NET
 
     public partial class FundamentalStock
     {
-        public static FundamentalStock FromJson(string json) => JsonConvert.DeserializeObject<FundamentalStock>(json, EODHistoricalData.NET.ConverterFundamentalStock.Settings);
+        public static FundamentalStock FromJson(string json)
+        {
+            json = json.Replace("\"0000-00-00\"", "null");
+            return JsonConvert.DeserializeObject<FundamentalStock>(json, EODHistoricalData.NET.ConverterFundamentalStock.Settings);
+        }
     }
 
     public static class SerializeFundamentalStock
