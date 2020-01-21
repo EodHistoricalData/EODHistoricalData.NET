@@ -8,6 +8,8 @@ namespace EODHistoricalData.NET.Tests
     {
         internal const string ApiToken = "OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX";
         internal const string TestSymbol = "AAPL.US";
+        internal const string TestSymbolNullData = "AEDAUD.FOREX";
+        internal const string TestSymbolReturnsEmpty = "VRGWX.NMFQS";
         internal const string TestIndex = "FCHI.INDX";
         internal const string TestETF = "VTI.US";
         internal const string TestFund = "SWPPX.US";

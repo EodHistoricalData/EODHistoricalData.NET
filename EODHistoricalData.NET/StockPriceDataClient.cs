@@ -21,7 +21,7 @@ namespace EODHistoricalData.NET
 
         List<HistoricalPrice> GetHistoricalPricesFromResponse(HttpResponseMessage response)
         {
-            return HistoricalPrice.GetListFromJson(response.Content.ReadAsStringAsync().Result);
+            return HistoricalPrice.GetListFromJson(response.Content.ReadAsStringAsync().Result) ?? new List<HistoricalPrice>();
         }
 
         internal List<RealTimePrice> GetRealTimePrices(string[] symbols)

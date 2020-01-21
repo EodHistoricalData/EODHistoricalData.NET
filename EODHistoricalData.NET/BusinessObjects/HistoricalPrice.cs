@@ -59,7 +59,8 @@ namespace EODHistoricalData.NET
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal },
+                new NullConverter()
             },
         };
     }
