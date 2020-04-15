@@ -22,6 +22,12 @@ namespace EODHistoricalData.NET
 
         [JsonProperty("exchange")]
         public string Exchange { get; set; }
+        
+        [JsonProperty("lastTradeDate")]
+        public DateTime? LastTradeDate { get; set; }
+        
+        [JsonProperty("lastTradePrice")]
+        public decimal? LastTradePrice { get; set; }
 
         [JsonProperty("data")]
         public List<Datum> Data { get; set; }
@@ -72,25 +78,25 @@ namespace EODHistoricalData.NET
         public decimal Strike { get; set; }
 
         [JsonProperty("lastPrice")]
-        public decimal LastPrice { get; set; }
+        public decimal? LastPrice { get; set; }
 
         [JsonProperty("bid")]
-        public decimal Bid { get; set; }
+        public decimal? Bid { get; set; }
 
         [JsonProperty("ask")]
-        public decimal Ask { get; set; }
+        public decimal? Ask { get; set; }
 
         [JsonProperty("change")]
-        public decimal Change { get; set; }
+        public decimal? Change { get; set; }
 
         [JsonProperty("changePercent")]
-        public decimal ChangePercent { get; set; }
+        public decimal? ChangePercent { get; set; }
 
         [JsonProperty("volume")]
-        public long Volume { get; set; }
+        public long? Volume { get; set; }
 
         [JsonProperty("openInterest")]
-        public long OpenInterest { get; set; }
+        public long? OpenInterest { get; set; }
 
         [JsonProperty("impliedVolatility")]
         public decimal? ImpliedVolatility { get; set; }
