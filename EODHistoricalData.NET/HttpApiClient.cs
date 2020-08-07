@@ -28,7 +28,7 @@ namespace EODHistoricalData.NET
             HttpResponseMessage response = _httpClient.GetAsync(uri).Result;
             if (response.IsSuccessStatusCode)
                 return handler(response);
-            throw new Exception(response.ReasonPhrase);
+            throw new HttpRequestException($"There was an error while executing the HTTP query. Reason: {response.ReasonPhrase}");
         }
     }
 }
