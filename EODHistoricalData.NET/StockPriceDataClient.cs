@@ -30,7 +30,7 @@ namespace EODHistoricalData.NET
             string[] others = symbols.Skip(1).ToArray();
             StringBuilder sb = new StringBuilder();
             sb.Append(string.Format(RealTimeDataUrl, first, _apiToken));
-            sb.Append($"&s={string.Join(',', others)}");
+            sb.Append($"&s={string.Join(",", others)}");
 
             return ExecuteQuery(sb.ToString(), GetRealTimePrices);
         }
