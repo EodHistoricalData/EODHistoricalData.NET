@@ -61,7 +61,7 @@ namespace EODHistoricalData.NET
             Converters =
             {
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal },
-                new NullConverter()
+                new NullConverter(),
             },
             Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
             {

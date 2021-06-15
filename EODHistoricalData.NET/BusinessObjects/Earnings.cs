@@ -80,13 +80,20 @@ namespace EODHistoricalData.NET
 
     internal static class ConverterEarnings
     {
+        public static List<string> Errors = new List<string>();
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal },
+                new NullConverter(),
+            },
+            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+            {
+                Errors.Add(args.ErrorContext.Error.Message);
+                args.ErrorContext.Handled = true;
             },
         };
     }
