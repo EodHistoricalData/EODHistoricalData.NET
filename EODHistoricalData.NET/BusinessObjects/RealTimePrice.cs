@@ -52,6 +52,9 @@ namespace EODHistoricalData.NET
 
         [JsonIgnore]
         public DateTime TimestampAsDateTime { get; set; }
+
+        [JsonIgnore]
+        public List<string> ErrorMessages { get; set; }
     }
 
     public partial class RealTimePrice
@@ -59,6 +62,7 @@ namespace EODHistoricalData.NET
         public static RealTimePrice FromJson(string json)
         {
             RealTimePrice result = JsonConvert.DeserializeObject<RealTimePrice>(json, EODHistoricalData.NET.ConverterRealTimePrice.Settings);
+            result.ErrorMessages = ConverterRealTimePrice.Errors;
             result.TimestampAsDateTime = DateTimeOffset.FromUnixTimeSeconds(result.Timestamp).DateTime;
             return result;
         }
@@ -78,6 +82,7 @@ namespace EODHistoricalData.NET
 
     internal static class ConverterRealTimePrice
     {
+        public static List<string> Errors = new List<string>();
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
@@ -85,6 +90,11 @@ namespace EODHistoricalData.NET
             Converters =
             {
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+            },
+            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+            {
+                Errors.Add(args.ErrorContext.Error.Message);
+                args.ErrorContext.Handled = true;
             },
         };
     }

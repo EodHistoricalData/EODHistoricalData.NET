@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EODHistoricalData.NET
 {
@@ -10,19 +7,19 @@ namespace EODHistoricalData.NET
     {
         public override bool CanConvert(Type objectType)
         {
-            return (objectType == typeof(System.Double)) || (objectType == typeof(System.Int64));
+            return (objectType == typeof(double)) || (objectType == typeof(long));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (objectType == typeof(System.Double))
+            if (objectType == typeof(double))
             {
                 if (reader.TokenType == JsonToken.Float) return reader.Value;
                 if (reader.TokenType == JsonToken.Integer) return Convert.ToDouble(reader.Value);
-                if (reader.TokenType == JsonToken.Null) return Double.NaN;
+                if (reader.TokenType == JsonToken.Null) return double.NaN;
             }
 
-            if (objectType == typeof(System.Int64))
+            if (objectType == typeof(long))
             {
                 if (reader.TokenType == JsonToken.Integer) return Convert.ToInt64(reader.Value);
                 if (reader.TokenType == JsonToken.Null) return (long)0;
