@@ -52,7 +52,7 @@ namespace EODHistoricalData.NET
         public string MorningStarCategory { get; set; }
 
         [JsonProperty("Incepton_Date")]
-        public DateTimeOffset InceptonDate { get; set; }
+        public DateTimeOffset? InceptonDate { get; set; }
 
         [JsonProperty("Currency")]
         public string Currency { get; set; }
@@ -79,7 +79,7 @@ namespace EODHistoricalData.NET
         public decimal? ExpenseRatio { get; set; }
 
         [JsonProperty("Expense_Ratio_Date")]
-        public DateTimeOffset ExpenseRatioDate { get; set; }
+        public DateTimeOffset? ExpenseRatioDate { get; set; }
 
         [JsonProperty("Asset_Allocation")]
         public Dictionary<string, AssetAllocation> AssetAllocation { get; set; }

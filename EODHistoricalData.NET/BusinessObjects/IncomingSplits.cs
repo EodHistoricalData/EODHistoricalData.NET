@@ -39,7 +39,7 @@ namespace EODHistoricalData.NET
         public string Code { get; set; }
 
         [JsonProperty("split_date")]
-        public DateTimeOffset SplitDate { get; set; }
+        public DateTimeOffset? SplitDate { get; set; }
 
         [JsonProperty("optionable")]
         public Optionable Optionable { get; set; }

@@ -344,7 +344,7 @@ namespace EODHistoricalData.NET
         public decimal? EpsEstimateCurrentQuarter { get; set; }
 
         [JsonProperty("MostRecentQuarter")]
-        public DateTimeOffset MostRecentQuarter { get; set; }
+        public DateTimeOffset? MostRecentQuarter { get; set; }
 
         [JsonProperty("ProfitMargin")]
         public decimal? ProfitMargin { get; set; }
