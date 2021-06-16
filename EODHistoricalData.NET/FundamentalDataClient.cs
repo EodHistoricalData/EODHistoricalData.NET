@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace EODHistoricalData.NET
 {
@@ -9,7 +7,6 @@ namespace EODHistoricalData.NET
     {
         const string FundamentalUrl = @"https://eodhistoricaldata.com/api/fundamentals/{0}?api_token={1}";
         const string ExchangeUrl = @"https://eodhistoricaldata.com/api/exchanges/{0}?api_token={1}&fmt=json";
-        
 
         internal FundamentalDataClient(string apiToken, bool useProxy) : base(apiToken, useProxy) { }
 

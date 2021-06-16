@@ -23,8 +23,7 @@ namespace EODHistoricalData.NET
 
         List<Dividend> GetDividendsFromResponse(HttpResponseMessage response)
         {
-            Dictionary<string, Dividend> div = Dividend.FromJson(response.Content.ReadAsStringAsync().Result);
-            return div.Values.ToList();
+            return Dividend.FromJson(response.Content.ReadAsStringAsync().Result);
         }
 
         internal List<ShareSplit> GetShareSplits(string symbol, DateTime? startDate, DateTime? endDate)
