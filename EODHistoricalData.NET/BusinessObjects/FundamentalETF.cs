@@ -49,7 +49,7 @@ namespace EODHistoricalData.NET
         public string DividendPayingFrequency { get; set; }
 
         [JsonProperty("Inception_Date")]
-        public DateTimeOffset InceptionDate { get; set; }
+        public DateTimeOffset? InceptionDate { get; set; }
 
         [JsonProperty("Max_Annual_Mgmt_Charge")]
         public decimal? MaxAnnualMgmtCharge { get; set; }

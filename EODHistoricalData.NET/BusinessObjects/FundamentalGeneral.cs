@@ -60,7 +60,7 @@ namespace EODHistoricalData.NET.BusinessObjects
         public string EmployerIdNumber { get; set; }
 
         [JsonProperty("IPODate")]
-        public DateTimeOffset IpoDate { get; set; }
+        public DateTimeOffset? IpoDate { get; set; }
 
         [JsonProperty("InternationalDomestic")]
         public string InternationalDomestic { get; set; }

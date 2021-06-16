@@ -36,7 +36,7 @@ namespace EODHistoricalData.NET
     public partial class Datum
     {
         [JsonProperty("expirationDate")]
-        public DateTimeOffset ExpirationDate { get; set; }
+        public DateTimeOffset? ExpirationDate { get; set; }
 
         [JsonProperty("options")]
         public OptionsClass Options { get; set; }
@@ -72,7 +72,7 @@ namespace EODHistoricalData.NET
         public string LastTradeDateTimeString { get; set; }
 
         [JsonProperty("expirationDate")]
-        public DateTimeOffset ExpirationDate { get; set; }
+        public DateTimeOffset? ExpirationDate { get; set; }
 
         [JsonProperty("strike")]
         public decimal Strike { get; set; }
