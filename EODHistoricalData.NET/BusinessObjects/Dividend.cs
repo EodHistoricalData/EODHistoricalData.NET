@@ -29,29 +29,45 @@ namespace EODHistoricalData.NET
         [JsonProperty("paymentDate")]
         public DateTimeOffset? PaymentDate { get; set; }
 
+        [JsonProperty("period")]
+        public string Period { get; set; }
+
         [JsonProperty("value")]
         public string Value { get; set; }
+
+        [JsonProperty("unadjustedValue")]
+        public string UnadjustedValue { get; set; }
+
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
     }
 
     public partial class Dividend
     {
-        public static Dictionary<string, Dividend> FromJson(string json) => JsonConvert.DeserializeObject<Dictionary<string, Dividend>>(json, EODHistoricalData.NET.ConverterDividend.Settings);
+        public static List<Dividend> FromJson(string json) => JsonConvert.DeserializeObject<List<Dividend>>(json, EODHistoricalData.NET.ConverterDividend.Settings);
     }
 
     public static class SerializeDividend
     {
-        public static string ToJson(this Dictionary<string, Dividend> self) => JsonConvert.SerializeObject(self, EODHistoricalData.NET.ConverterDividend.Settings);
+        public static string ToJson(this List<Dividend> self) => JsonConvert.SerializeObject(self, EODHistoricalData.NET.ConverterDividend.Settings);
     }
 
     internal static class ConverterDividend
     {
+        public static List<string> Errors = new List<string>();
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal },
+                new NullConverter(),
+            },
+            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+            {
+                Errors.Add(args.ErrorContext.Error.Message);
+                args.ErrorContext.Handled = true;
             },
         };
     }

@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EODHistoricalData.NET.BusinessObjects
 {
@@ -33,6 +30,5 @@ namespace EODHistoricalData.NET.BusinessObjects
 
         [JsonProperty("ShortPercent")]
         public decimal? ShortPercent { get; set; }
-
     }
 }

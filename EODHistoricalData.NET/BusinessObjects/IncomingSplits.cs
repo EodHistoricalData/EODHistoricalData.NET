@@ -65,6 +65,7 @@ namespace EODHistoricalData.NET
 
     internal static class ConverterIncomingSplits
     {
+        public static List<string> Errors = new List<string>();
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
@@ -72,7 +73,13 @@ namespace EODHistoricalData.NET
             Converters =
             {
                 OptionableConverter.Singleton,
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal },
+                new NullConverter(),
+            },
+            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+            {
+                Errors.Add(args.ErrorContext.Error.Message);
+                args.ErrorContext.Handled = true;
             },
         };
     }

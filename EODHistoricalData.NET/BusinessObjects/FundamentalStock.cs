@@ -8,13 +8,12 @@
 
 namespace EODHistoricalData.NET
 {
-    using System;
-    using System.Collections.Generic;
-
-    using System.Globalization;
     using EODHistoricalData.NET.BusinessObjects;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
 
     public partial class FundamentalStock
     {
@@ -499,13 +498,20 @@ namespace EODHistoricalData.NET
 
     internal static class ConverterFundamentalStock
     {
+        public static List<string> Errors = new List<string>();
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal },
+                new NullConverter(),
+            },
+            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+            {
+                Errors.Add(args.ErrorContext.Error.Message);
+                args.ErrorContext.Handled = true;
             },
         };
     }

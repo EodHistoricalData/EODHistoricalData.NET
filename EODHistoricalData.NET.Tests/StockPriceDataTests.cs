@@ -62,11 +62,13 @@ namespace EODHistoricalData.NET.Tests
         }
 
         [TestMethod]
-        public void historical_valid_symbols_returns_empty()
+        public void historical_valid_symbols_throws_not_found()
         {
-            EODHistoricalDataClient client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            List<HistoricalPrice> prices = client.GetHistoricalPrices(Consts.TestSymbolReturnsEmpty, null, null);
-            Assert.IsTrue(prices.Count == 0);
+            Assert.ThrowsException<System.Net.Http.HttpRequestException>(() =>
+            {
+                EODHistoricalDataClient client = new EODHistoricalDataClient(Consts.ApiToken, true);
+                List<HistoricalPrice> prices = client.GetHistoricalPrices(Consts.TestSymbolReturnsEmpty, null, null);
+            });
         }
 
         [TestMethod]
