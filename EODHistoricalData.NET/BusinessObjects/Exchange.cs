@@ -4,7 +4,7 @@
 //
 //    using EODHistoricalData.NET;
 //
-//    var instrument = Instrument.FromJson(jsonString);
+//    var exchanges = Exchange.FromJson(jsonString);
 
 namespace EODHistoricalData.NET
 {
