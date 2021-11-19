@@ -13,10 +13,10 @@ namespace EODHistoricalData.NET.Tests
         internal const string TestETF = "VTI.US";
         internal const string TestFund = "SWPPX.US";
         internal const string Exchange = "PA";
-        internal static readonly DateTime StartDate = DateTime.Now.AddYears(-10).AddDays(-1).Date;
-        internal static readonly DateTime EndDate = DateTime.Now.AddYears(-5).AddDays(-1).Date;
-        internal static readonly DateTime OptionsStartDate = DateTime.Now.AddYears(-1).AddDays(-2).Date;
-        internal static readonly DateTime OptionsEndDate = DateTime.Now.AddMonths(-1).AddDays(-1).Date;
+        internal static readonly DateTime StartDate = DateTime.UtcNow.AddYears(-10).AddDays(-1).Date;
+        internal static readonly DateTime EndDate = DateTime.UtcNow.AddYears(-5).AddDays(-1).Date;
+        internal static readonly DateTime OptionsStartDate = DateTime.UtcNow.AddYears(-1).AddDays(-2).Date;
+        internal static readonly DateTime OptionsEndDate = DateTime.UtcNow.AddMonths(-1).AddDays(-1).Date;
         internal static readonly DateTime OptionsTradeStartDate = new DateTime(2018, 3, 29);
         internal static readonly DateTime OptionsTradeEndDate = new DateTime(2019, 7, 1);
         internal static readonly string[] MultipleTestSymbol = new[] { TestSymbol, "VTI", "EUR.FOREX" };
