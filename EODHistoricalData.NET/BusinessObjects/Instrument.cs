@@ -34,9 +34,11 @@ namespace EODHistoricalData.NET
 
         [JsonProperty("Type")]
         public string Type { get; set; }
+        
+        [JsonProperty("Isin")]
+        public string Isin { get; set; }
     }
-
-
+    
     public partial class Instrument
     {
         public static List<Instrument> FromJson(string json) => JsonConvert.DeserializeObject<List<Instrument>>(json, EODHistoricalData.NET.ConverterInstrument.Settings);
