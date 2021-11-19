@@ -18,6 +18,7 @@ namespace EODHistoricalData.NET
         OptionsDataClient _optionsClient;
         CalendarDataClient _calenderClient;
         FundamentalDataClient _fundamentalDataClient;
+        ExchangesDataClient _exchangesDataClient;
 
         bool _useProxy = false;
 
@@ -161,6 +162,14 @@ namespace EODHistoricalData.NET
                 _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
 
             return _fundamentalDataClient.GetExchangeInstruments(exchangeCode);
+        }
+        
+        public List<Exchange> GetExchangeList()
+        {
+            if (_exchangesDataClient == null)
+                _exchangesDataClient = new ExchangesDataClient(_apiToken, _useProxy);
+
+            return _exchangesDataClient.GetExchanges();
         }
     }
 }
