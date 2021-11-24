@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace EODHistoricalData.NET.BusinessObjects
 {
@@ -83,9 +84,42 @@ namespace EODHistoricalData.NET.BusinessObjects
         [JsonProperty("GicSubIndustry")]
         public string GicSubIndustry { get; set; }
         
+        /// <summary>
+        /// Returns true or false if the listing is no longer traded
+        /// </summary>
+        [JsonProperty("IsDelisted")]
+        public bool IsDelisted { get; set; }
+        
+        /// <summary>
+        /// The date that the listing was no longer traded
+        /// </summary>
+        [JsonProperty("DelistedDate")]
+        public DateTimeOffset? DelistedDate { get; set; }
+        
+        /// <summary>
+        /// The Address in a human readable form
+        /// </summary>
         [JsonProperty("Address")]
         public string Address { get; set; }
 
+        /// <summary>
+        /// The Data for the Address
+        /// </summary>
+        [JsonProperty("AddressData")]
+        public AddressData AddressData { get; set; }
+
+        /// <summary>
+        /// The different listings on different exchanges
+        /// </summary>
+        [JsonProperty("Listings")] 
+        public Dictionary<int, Listing> Listings { get; set; }
+
+        /// <summary>
+        /// The officers for the listing if known
+        /// </summary>
+        [JsonProperty("Officers")] 
+        public Dictionary<int, Officer> Officers { get; set; }
+        
         [JsonProperty("Phone")]
         public string Phone { get; set; }
 
@@ -100,5 +134,78 @@ namespace EODHistoricalData.NET.BusinessObjects
 
         [JsonProperty("UpdatedAt")]
         public DateTimeOffset UpdatedAt { get; set; }
+    }
+
+    public class AddressData
+    {
+        /// <summary>
+        /// The Number and Name of the street
+        /// </summary>
+        [JsonProperty("Street")]
+        public string Street { get; set; }
+        
+        /// <summary>
+        /// The City of the Address
+        /// </summary>
+        [JsonProperty("City")]
+        public string City { get; set; }
+        
+        /// <summary>
+        /// The Country of the Address
+        /// </summary>
+        [JsonProperty("Country")]
+        public string Country { get; set; }
+        
+        /// <summary>
+        /// The Zip or Postcode of the Address
+        /// </summary>
+        [JsonProperty("ZIP")]
+        public string ZIP { get; set; }
+        
+    }
+
+    public class Listing
+    {
+        /// <summary>
+        /// The Stock Code
+        /// </summary>
+        [JsonProperty("Code")]
+        public string Code { get; set; }
+        
+        /// <summary>
+        /// The Exchange if known
+        /// Can be empty or null
+        /// </summary>
+        [JsonProperty("Exchange")]
+        public string Exchange { get; set; }
+        
+        /// <summary>
+        /// The Alternative Name for the Company 
+        /// </summary>
+        [JsonProperty("Name")]
+        public string Name { get; set; }
+    }
+
+    public class Officer
+    {
+        /// <summary>
+        /// The Name of the person including their salutation
+        /// example: Ms. Charlotte  Emery
+        /// </summary>
+        [JsonProperty("Name")]
+        public string Name { get; set; }
+        
+        /// <summary>
+        /// The Title the person held
+        /// </summary>
+        [JsonProperty("Title")]
+        public string Title { get; set; }
+        
+        /// <summary>
+        /// The year that the person was born if known
+        /// If Unknown returns "NA" and could be null or empty
+        /// </summary>
+        [JsonProperty("YearBorn")]
+        public string YearBorn { get; set; }
     }
 }
