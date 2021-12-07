@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
@@ -14,14 +13,14 @@ namespace EODHistoricalData.NET
             _useProxy = useProxy;
         }
 
-        StockPriceDataClient _stockPriceDataClient;
-        SplitDividendClient _splitDividendClient;
-        OptionsDataClient _optionsClient;
-        CalendarDataClient _calenderClient;
-        FundamentalDataClient _fundamentalDataClient;
-        ExchangesDataClient _exchangesDataClient;
+        private StockPriceDataClient _stockPriceDataClient;
+        private SplitDividendClient _splitDividendClient;
+        private OptionsDataClient _optionsClient;
+        private CalendarDataClient _calenderClient;
+        private FundamentalDataClient _fundamentalDataClient;
+        private ExchangesDataClient _exchangesDataClient;
 
-        bool _useProxy = false;
+        private readonly bool _useProxy;
 
         public List<HistoricalPrice> GetHistoricalPrices(string symbol, DateTime? startDate, DateTime? endDate)
         {
@@ -103,14 +102,6 @@ namespace EODHistoricalData.NET
 
             return _calenderClient.GetEarnings(startDate, endDate, symbols);
         }
-
-        public Task<Earnings> GetEarningsAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
-        {
-            if (_calenderClient == null)
-                _calenderClient = new CalendarDataClient(_apiToken, _useProxy);
-
-            return _calenderClient.GetEarningsAsync(startDate, endDate, symbols);
-        }
         
         public Ipos GetIpos(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
@@ -132,12 +123,6 @@ namespace EODHistoricalData.NET
         {
             return GetFundamentalStock((new[] { symbol }).ToList()).FirstOrDefault();
         }
-
-        public async Task<FundamentalStock> GetFundamentalStockAsync(string symbol)
-        {
-            var results = await GetFundamentalStockAsync((new[] { symbol }).ToList());
-            return results.FirstOrDefault();
-        }
         
         public IList<FundamentalStock> GetFundamentalStock(IList<string> symbols)
         {
@@ -145,20 +130,6 @@ namespace EODHistoricalData.NET
                 _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
 
             return symbols.Select(x => _fundamentalDataClient.GetFundamentalStock(x)).ToList();
-        }
-
-        public async Task<IList<FundamentalStock>> GetFundamentalStockAsync(IList<string> symbols)
-        {
-            if (_fundamentalDataClient == null)
-                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            var list = new List<FundamentalStock>();
-            foreach (var symbol in symbols)
-            {
-                list.Add(await _fundamentalDataClient.GetFundamentalStockAsync(symbol));
-            }
-            
-            return list;
         }
         
         public FundamentalFund GetFundamentalFund(string symbol)
@@ -169,28 +140,12 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetFundamentalFund(symbol);
         }
         
-        public Task<FundamentalFund> GetFundamentalFundAsync(string symbol)
-        {
-            if (_fundamentalDataClient == null)
-                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return _fundamentalDataClient.GetFundamentalFundAsync(symbol);
-        }
-        
         public FundamentalETF GetFundamentalETF(string symbol)
         {
             if (_fundamentalDataClient == null)
                 _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
 
             return _fundamentalDataClient.GetFundamentalETF(symbol);
-        }
-
-        public Task<FundamentalETF> GetFundamentalETFAsync(string symbol)
-        {
-            if (_fundamentalDataClient == null)
-                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return _fundamentalDataClient.GetFundamentalETFAsync(symbol);
         }
         
         public IndexComposition GetIndexComposition(string symbol)
@@ -199,14 +154,6 @@ namespace EODHistoricalData.NET
                 _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
 
             return _fundamentalDataClient.GetIndexComposition(symbol);
-        }
-
-        public Task<IndexComposition> GetIndexCompositionAsync(string symbol)
-        {
-            if (_fundamentalDataClient == null)
-                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return _fundamentalDataClient.GetIndexCompositionAsync(symbol);
         }
         
         public List<Instrument> GetExchangeInstruments(string exchangeCode)
@@ -217,28 +164,12 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetExchangeInstruments(exchangeCode);
         }
         
-        public Task<List<Instrument>> GetExchangeInstrumentsAsync(string exchangeCode)
-        {
-            if (_fundamentalDataClient == null)
-                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return _fundamentalDataClient.GetExchangeInstrumentsAsync(exchangeCode);
-        }
-        
         public List<Exchange> GetExchangeList()
         {
             if (_exchangesDataClient == null)
                 _exchangesDataClient = new ExchangesDataClient(_apiToken, _useProxy);
 
             return _exchangesDataClient.GetExchanges();
-        }
-        
-        public Task<List<Exchange>> GetExchangeListAsync()
-        {
-            if (_exchangesDataClient == null)
-                _exchangesDataClient = new ExchangesDataClient(_apiToken, _useProxy);
-
-            return _exchangesDataClient.GetExchangesAsync();
         }
 
         public void Dispose()

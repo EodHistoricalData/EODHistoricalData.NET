@@ -14,16 +14,16 @@ namespace EODHistoricalData.NET
             _useProxy = useProxy;
         }
 
-        StockPriceDataAsyncClient _stockPriceDataAsyncClient;
-        SplitDividendAsyncClient _splitDividendAsyncClient;
-        OptionsDataAsyncClient _optionsDataAsyncClient;
-        CalendarDataAsyncClient _calendarDataAsyncClient;
-        FundamentalDataAsyncClient _fundamentalDataAsyncClient;
-        ExchangesDataAsyncClient _exchangesDataAsyncClient;
+        private StockPriceDataAsyncClient _stockPriceDataAsyncClient;
+        private SplitDividendAsyncClient _splitDividendAsyncClient;
+        private OptionsDataAsyncClient _optionsDataAsyncClient;
+        private CalendarDataAsyncClient _calendarDataAsyncClient;
+        private FundamentalDataAsyncClient _fundamentalDataAsyncClient;
+        private ExchangesDataAsyncClient _exchangesDataAsyncClient;
 
-        bool _useProxy = false;
+        private readonly bool _useProxy;
 
-        public List<HistoricalPrice> GetHistoricalPrices(string symbol, DateTime? startDate, DateTime? endDate)
+        public Task<List<HistoricalPrice>> GetHistoricalPricesAsync(string symbol, DateTime? startDate, DateTime? endDate)
         {
             if (symbol == null)
                 throw new ArgumentNullException("Symbol is null, cannot query prices.");
@@ -31,10 +31,10 @@ namespace EODHistoricalData.NET
             if (_stockPriceDataAsyncClient == null)
                 _stockPriceDataAsyncClient = new StockPriceDataAsyncClient(_apiToken, _useProxy);
 
-            return _stockPriceDataAsyncClient.GetHistoricalPrices(symbol, startDate, endDate);
+            return _stockPriceDataAsyncClient.GetHistoricalPricesAsync(symbol, startDate, endDate);
         }
 
-        public RealTimePrice GetRealTimePrice(string symbol)
+        public Task<RealTimePrice> GetRealTimePriceAsync(string symbol)
         {
             if (symbol == null)
                 throw new ArgumentNullException("Symbols list is null. Cannot get realtime prices.");
@@ -42,10 +42,10 @@ namespace EODHistoricalData.NET
             if (_stockPriceDataAsyncClient == null)
                 _stockPriceDataAsyncClient = new StockPriceDataAsyncClient(_apiToken, _useProxy);
 
-            return _stockPriceDataAsyncClient.GetRealTimePrice(symbol);
+            return _stockPriceDataAsyncClient.GetRealTimePriceAsync(symbol);
         }
 
-        public List<RealTimePrice> GetRealTimePrices(string[] symbols)
+        public Task<List<RealTimePrice>> GetRealTimePricesAsync(string[] symbols)
         {
             if (symbols == null)
                 throw new ArgumentNullException("Symbols list is null. Cannot get realtime prices.");
@@ -59,10 +59,10 @@ namespace EODHistoricalData.NET
             if (_stockPriceDataAsyncClient == null)
                 _stockPriceDataAsyncClient = new StockPriceDataAsyncClient(_apiToken, _useProxy);
 
-            return _stockPriceDataAsyncClient.GetRealTimePrices(symbols);
+            return _stockPriceDataAsyncClient.GetRealTimePricesAsync(symbols);
         }
 
-        public List<Dividend> GetDividends(string symbol, DateTime? startDate, DateTime? endDate)
+        public Task<List<Dividend>> GetDividendsAsync(string symbol, DateTime? startDate, DateTime? endDate)
         {
             if (symbol == null)
                 throw new ArgumentNullException("Symbol is null, cannot query dividends.");
@@ -70,10 +70,10 @@ namespace EODHistoricalData.NET
             if (_splitDividendAsyncClient == null)
                 _splitDividendAsyncClient = new SplitDividendAsyncClient(_apiToken, _useProxy);
 
-            return _splitDividendAsyncClient.GetDividends(symbol, startDate, endDate);
+            return _splitDividendAsyncClient.GetDividendsAsync(symbol, startDate, endDate);
         }
 
-        public List<ShareSplit> GetShareSplits(string symbol, DateTime? startDate, DateTime? endDate)
+        public Task<List<ShareSplit>> GetShareSplitsAsync(string symbol, DateTime? startDate, DateTime? endDate)
         {
             if (symbol == null)
                 throw new ArgumentNullException("Symbol is null, cannot query splits.");
@@ -81,11 +81,11 @@ namespace EODHistoricalData.NET
             if (_splitDividendAsyncClient == null)
                 _splitDividendAsyncClient = new SplitDividendAsyncClient(_apiToken, _useProxy);
 
-            return _splitDividendAsyncClient.GetShareSplits(symbol, startDate, endDate);
+            return _splitDividendAsyncClient.GetShareSplitsAsync(symbol, startDate, endDate);
         }
 
 
-        public Options GetOptions(string symbol, DateTime? startDate, DateTime? endDate, DateTime? startTradeDate = null, DateTime? endTradeDate = null)
+        public Task<Options> GetOptionsAsync(string symbol, DateTime? startDate, DateTime? endDate, DateTime? startTradeDate = null, DateTime? endTradeDate = null)
         {
             if (symbol == null)
                 throw new ArgumentNullException("Symbol is null, cannot query options data.");
@@ -96,41 +96,28 @@ namespace EODHistoricalData.NET
             return _optionsDataAsyncClient.GetOptions(symbol, startDate, endDate);
         }
 
-        public Earnings GetEarnings(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
+        public Task<Earnings> GetEarningsAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             if (_calendarDataAsyncClient == null)
                 _calendarDataAsyncClient = new CalendarDataAsyncClient(_apiToken, _useProxy);
 
-            return _calendarDataAsyncClient.GetEarnings(startDate, endDate, symbols);
-        }
-
-        public Task<Earnings> GetEarningsAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
-        {
-            if (_calendarDataAsyncClient == null)
-                _calendarDataAsyncClient = new CalendarDataClient(_apiToken, _useProxy);
-
             return _calendarDataAsyncClient.GetEarningsAsync(startDate, endDate, symbols);
         }
         
-        public Ipos GetIpos(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
+        public Task<Ipos> GetIposAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             if (_calendarDataAsyncClient == null)
-                _calendarDataAsyncClient = new CalendarDataClient(_apiToken, _useProxy);
+                _calendarDataAsyncClient = new CalendarDataAsyncClient(_apiToken, _useProxy);
 
-            return _calendarDataAsyncClient.GetIpos(startDate, endDate, symbols);
+            return _calendarDataAsyncClient.GetIposAsync(startDate, endDate, symbols);
         }
 
-        public IncomingSplits GetIncomingSplits(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
+        public Task<IncomingSplits> GetIncomingSplitsAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             if (_calendarDataAsyncClient == null)
-                _calendarDataAsyncClient = new CalendarDataClient(_apiToken, _useProxy);
+                _calendarDataAsyncClient = new CalendarDataAsyncClient(_apiToken, _useProxy);
 
-            return _calendarDataAsyncClient.GetIncomingSplits(startDate, endDate, symbols);
-        }
-
-        public FundamentalStock GetFundamentalStock(string symbol)
-        {
-            return GetFundamentalStock((new[] { symbol }).ToList()).FirstOrDefault();
+            return _calendarDataAsyncClient.GetIncomingSplitsAsync(startDate, endDate, symbols);
         }
 
         public async Task<FundamentalStock> GetFundamentalStockAsync(string symbol)
@@ -139,18 +126,10 @@ namespace EODHistoricalData.NET
             return results.FirstOrDefault();
         }
         
-        public IList<FundamentalStock> GetFundamentalStock(IList<string> symbols)
-        {
-            if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return symbols.Select(x => _fundamentalDataAsyncClient.GetFundamentalStock(x)).ToList();
-        }
-
         public async Task<IList<FundamentalStock>> GetFundamentalStockAsync(IList<string> symbols)
         {
             if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
+                _fundamentalDataAsyncClient = new FundamentalDataAsyncClient(_apiToken, _useProxy);
 
             var list = new List<FundamentalStock>();
             foreach (var symbol in symbols)
@@ -161,82 +140,42 @@ namespace EODHistoricalData.NET
             return list;
         }
         
-        public FundamentalFund GetFundamentalFund(string symbol)
-        {
-            if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return _fundamentalDataAsyncClient.GetFundamentalFund(symbol);
-        }
-        
         public Task<FundamentalFund> GetFundamentalFundAsync(string symbol)
         {
             if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
+                _fundamentalDataAsyncClient = new FundamentalDataAsyncClient(_apiToken, _useProxy);
 
             return _fundamentalDataAsyncClient.GetFundamentalFundAsync(symbol);
-        }
-        
-        public FundamentalETF GetFundamentalETF(string symbol)
-        {
-            if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return _fundamentalDataAsyncClient.GetFundamentalETF(symbol);
         }
 
         public Task<FundamentalETF> GetFundamentalETFAsync(string symbol)
         {
             if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
+                _fundamentalDataAsyncClient = new FundamentalDataAsyncClient(_apiToken, _useProxy);
 
             return _fundamentalDataAsyncClient.GetFundamentalETFAsync(symbol);
-        }
-        
-        public IndexComposition GetIndexComposition(string symbol)
-        {
-            if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return _fundamentalDataAsyncClient.GetIndexComposition(symbol);
         }
 
         public Task<IndexComposition> GetIndexCompositionAsync(string symbol)
         {
             if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
+                _fundamentalDataAsyncClient = new FundamentalDataAsyncClient(_apiToken, _useProxy);
 
             return _fundamentalDataAsyncClient.GetIndexCompositionAsync(symbol);
-        }
-        
-        public List<Instrument> GetExchangeInstruments(string exchangeCode)
-        {
-            if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
-
-            return _fundamentalDataAsyncClient.GetExchangeInstruments(exchangeCode);
         }
         
         public Task<List<Instrument>> GetExchangeInstrumentsAsync(string exchangeCode)
         {
             if (_fundamentalDataAsyncClient == null)
-                _fundamentalDataAsyncClient = new FundamentalDataClient(_apiToken, _useProxy);
+                _fundamentalDataAsyncClient = new FundamentalDataAsyncClient(_apiToken, _useProxy);
 
             return _fundamentalDataAsyncClient.GetExchangeInstrumentsAsync(exchangeCode);
-        }
-        
-        public List<Exchange> GetExchangeList()
-        {
-            if (_exchangesDataAsyncClient == null)
-                _exchangesDataAsyncClient = new ExchangesDataClient(_apiToken, _useProxy);
-
-            return _exchangesDataAsyncClient.GetExchanges();
         }
         
         public Task<List<Exchange>> GetExchangeListAsync()
         {
             if (_exchangesDataAsyncClient == null)
-                _exchangesDataAsyncClient = new ExchangesDataClient(_apiToken, _useProxy);
+                _exchangesDataAsyncClient = new ExchangesDataAsyncClient(_apiToken, _useProxy);
 
             return _exchangesDataAsyncClient.GetExchangesAsync();
         }

@@ -21,7 +21,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task earnings_with_from_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var earnings = client.GetEarnings(Consts.OptionsStartDate);
+            var earnings = await client.GetEarningsAsync(Consts.OptionsStartDate);
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
@@ -30,7 +30,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task earnings_with_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var earnings = client.GetEarnings(null, Consts.OptionsEndDate);
+            var earnings = await client.GetEarningsAsync(null, Consts.OptionsEndDate);
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
@@ -39,7 +39,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task earnings_with_from_and_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var earnings = client.GetEarnings(Consts.OptionsStartDate, Consts.OptionsEndDate);
+            var earnings = await client.GetEarningsAsync(Consts.OptionsStartDate, Consts.OptionsEndDate);
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
@@ -48,7 +48,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task earnings_with_symbols_list_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var earnings = client.GetEarnings(null, null, Consts.MultipleSymbolEarnings);
+            var earnings = await client.GetEarningsAsync(null, null, Consts.MultipleSymbolEarnings);
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
@@ -61,7 +61,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task ipos_no_parameters_returns_prices_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var ipos = client.GetIpos();
+            var ipos = await client.GetIposAsync();
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -70,7 +70,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task ipos_with_from_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var ipos = client.GetIpos(Consts.OptionsStartDate);
+            var ipos = await client.GetIposAsync(Consts.OptionsStartDate);
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -79,7 +79,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task ipos_with_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var ipos = client.GetIpos(null, Consts.OptionsEndDate);
+            var ipos = await client.GetIposAsync(null, Consts.OptionsEndDate);
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -88,7 +88,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task ipos_with_from_and_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var ipos = client.GetIpos(Consts.OptionsStartDate, Consts.OptionsEndDate);
+            var ipos = await client.GetIposAsync(Consts.OptionsStartDate, Consts.OptionsEndDate);
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -97,7 +97,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task ipos_with_symbols_list_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var ipos = client.GetIpos(null, null, Consts.MultipleSymbolEarnings);
+            var ipos = await client.GetIposAsync(null, null, Consts.MultipleSymbolEarnings);
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -110,7 +110,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task splits_no_parameters_returns_prices_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var splits = client.GetIncomingSplits();
+            var splits = await client.GetIncomingSplitsAsync();
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }
@@ -119,7 +119,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task splits_with_from_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var splits = client.GetIncomingSplits(Consts.OptionsStartDate);
+            var splits = await client.GetIncomingSplitsAsync(Consts.OptionsStartDate);
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }
@@ -128,7 +128,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task splits_with_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var splits = client.GetIncomingSplits(null, Consts.OptionsEndDate);
+            var splits = await client.GetIncomingSplitsAsync(null, Consts.OptionsEndDate);
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }
@@ -137,7 +137,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task splits_with_from_and_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var splits = client.GetIncomingSplits(Consts.OptionsStartDate, Consts.OptionsEndDate);
+            var splits = await client.GetIncomingSplitsAsync(Consts.OptionsStartDate, Consts.OptionsEndDate);
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }
@@ -146,7 +146,7 @@ namespace EODHistoricalData.NET.Tests
         public async Task splits_with_symbols_list_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var splits = client.GetIncomingSplits(null, null, Consts.MultipleSymbolEarnings);
+            var splits = await client.GetIncomingSplitsAsync(null, null, Consts.MultipleSymbolEarnings);
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }

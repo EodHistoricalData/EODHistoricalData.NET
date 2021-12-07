@@ -15,7 +15,7 @@ namespace EODHistoricalData.NET
 
         internal List<HistoricalPrice> GetHistoricalPrices(string symbol, DateTime? startDate, DateTime? endDate)
         {
-            string dateParameters = Utils.GetDateParametersAsString(startDate, endDate);
+            var dateParameters = Utils.GetDateParametersAsString(startDate, endDate);
             return ExecuteQuery(string.Format(HistoricalDataUrl, symbol, _apiToken, dateParameters), GetHistoricalPricesFromResponse);
         }
 
@@ -26,9 +26,9 @@ namespace EODHistoricalData.NET
 
         internal List<RealTimePrice> GetRealTimePrices(string[] symbols)
         {
-            string first = symbols[0];
-            string[] others = symbols.Skip(1).ToArray();
-            StringBuilder sb = new StringBuilder();
+            var first = symbols[0];
+            var others = symbols.Skip(1).ToArray();
+            var sb = new StringBuilder();
             sb.Append(string.Format(RealTimeDataUrl, first, _apiToken));
             sb.Append($"&s={string.Join(",", others)}");
 

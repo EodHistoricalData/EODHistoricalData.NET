@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
@@ -13,41 +14,41 @@ namespace EODHistoricalData.NET
 
         internal StockPriceDataAsyncClient(string api, bool useProxy) : base(api, useProxy) { }
 
-        internal List<HistoricalPrice> GetHistoricalPrices(string symbol, DateTime? startDate, DateTime? endDate)
+        internal Task<List<HistoricalPrice>> GetHistoricalPricesAsync(string symbol, DateTime? startDate, DateTime? endDate)
         {
-            string dateParameters = Utils.GetDateParametersAsString(startDate, endDate);
-            return ExecuteQuery(string.Format(HistoricalDataUrl, symbol, _apiToken, dateParameters), GetHistoricalPricesFromResponse);
+            var dateParameters = Utils.GetDateParametersAsString(startDate, endDate);
+            return ExecuteQueryAsync(string.Format(HistoricalDataUrl, symbol, _apiToken, dateParameters), GetHistoricalPricesFromResponseAsync);
         }
 
-        List<HistoricalPrice> GetHistoricalPricesFromResponse(HttpResponseMessage response)
+        private async Task<List<HistoricalPrice>> GetHistoricalPricesFromResponseAsync(HttpResponseMessage response)
         {
-            return HistoricalPrice.GetListFromJson(response.Content.ReadAsStringAsync().Result) ?? new List<HistoricalPrice>();
+            return HistoricalPrice.GetListFromJson(await response.Content.ReadAsStringAsync()) ?? new List<HistoricalPrice>();
         }
 
-        internal List<RealTimePrice> GetRealTimePrices(string[] symbols)
+        internal Task<List<RealTimePrice>> GetRealTimePricesAsync(string[] symbols)
         {
-            string first = symbols[0];
-            string[] others = symbols.Skip(1).ToArray();
-            StringBuilder sb = new StringBuilder();
+            var first = symbols[0];
+            var others = symbols.Skip(1).ToArray();
+            var sb = new StringBuilder();
             sb.Append(string.Format(RealTimeDataUrl, first, _apiToken));
             sb.Append($"&s={string.Join(",", others)}");
 
-            return ExecuteQuery(sb.ToString(), GetRealTimePrices);
+            return ExecuteQueryAsync(sb.ToString(), GetRealTimePricesAsync);
         }
 
-        internal RealTimePrice GetRealTimePrice(string symbol)
+        internal Task<RealTimePrice> GetRealTimePriceAsync(string symbol)
         {
-            return ExecuteQuery(string.Format(RealTimeDataUrl, symbol, _apiToken), GetRealTimePrice);
+            return ExecuteQueryAsync(string.Format(RealTimeDataUrl, symbol, _apiToken), GetRealTimePriceAsync);
         }
 
-        RealTimePrice GetRealTimePrice(HttpResponseMessage response)
+        private async Task<RealTimePrice> GetRealTimePriceAsync(HttpResponseMessage response)
         {
-            return RealTimePrice.FromJson(response.Content.ReadAsStringAsync().Result);
+            return RealTimePrice.FromJson(await response.Content.ReadAsStringAsync());
         }
 
-        List<RealTimePrice> GetRealTimePrices(HttpResponseMessage response)
+        private async Task<List<RealTimePrice>> GetRealTimePricesAsync(HttpResponseMessage response)
         {
-            return SerializeRealTimePrice.GetListFromJson(response.Content.ReadAsStringAsync().Result);
+            return SerializeRealTimePrice.GetListFromJson(await response.Content.ReadAsStringAsync());
         }
     }
 }

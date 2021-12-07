@@ -1,28 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
     internal class OptionsDataAsyncClient : HttpApiAsyncClient
     {
-        const string OptionsDataUrl = "https://eodhistoricaldata.com/api/options/{0}?&api_token={1}{2}";
-
+        private const string OptionsDataUrl = "https://eodhistoricaldata.com/api/options/{0}?&api_token={1}{2}";
 
         internal OptionsDataAsyncClient(string apiToken, bool useProxy) : base(apiToken, useProxy) { }
 
-        internal Options GetOptions(string symbol, DateTime? startDate, DateTime? endDate, DateTime? tradeStartDate = null, DateTime? tradeEndDate = null)
+        internal Task<Options> GetOptions(string symbol, DateTime? startDate, DateTime? endDate, DateTime? tradeStartDate = null, DateTime? tradeEndDate = null)
         {
-            string dateParameters = Utils.GetDateParametersAsString(startDate, endDate, "&");
-            string tradeDateParameters = string.Empty;
+            var dateParameters = Utils.GetDateParametersAsString(startDate, endDate, "&");
+            var tradeDateParameters = string.Empty;
             if (tradeStartDate != null || tradeEndDate != null)
                 tradeDateParameters = Utils.GetDateParametersAsString(tradeStartDate, tradeEndDate, "trade_date_from", "trade_date_to", " & ");
-            return ExecuteQuery(string.Format(OptionsDataUrl, symbol, _apiToken, $"{dateParameters}{tradeDateParameters}"), GetOptionsFromResponse);
+            return ExecuteQueryAsync(string.Format(OptionsDataUrl, symbol, _apiToken, $"{dateParameters}{tradeDateParameters}"), GetOptionsFromResponseAsync);
         }
 
-        private Options GetOptionsFromResponse(HttpResponseMessage response)
+        private async Task<Options> GetOptionsFromResponseAsync(HttpResponseMessage response)
         {
-            return Options.FromJson(response.Content.ReadAsStringAsync().Result);
+            return Options.FromJson(await response.Content.ReadAsStringAsync());
         }
     }
 }

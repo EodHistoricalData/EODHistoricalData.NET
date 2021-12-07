@@ -1,40 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
     internal class SplitDividendAsyncClient : HttpApiAsyncClient
     {
-        const string DividendDataUrl = "https://eodhistoricaldata.com/api/div/{0}?api_token={1}{2}&fmt=json";
-        const string SplitDataUrl = "https://eodhistoricaldata.com/api/splits/{0}?api_token={1}{2}&fmt=json";
+        private const string DividendDataUrl = "https://eodhistoricaldata.com/api/div/{0}?api_token={1}{2}&fmt=json";
+        private const string SplitDataUrl = "https://eodhistoricaldata.com/api/splits/{0}?api_token={1}{2}&fmt=json";
 
-        const string Prefix = "&";
+        private const string Prefix = "&";
 
         internal SplitDividendAsyncClient(string apiToken, bool useProxy) : base(apiToken, useProxy) { }
 
-        internal List<Dividend> GetDividends(string symbol, DateTime? startDate, DateTime? endDate)
+        internal Task<List<Dividend>> GetDividendsAsync(string symbol, DateTime? startDate, DateTime? endDate)
         {
-            string dateParameters = Utils.GetDateParametersAsString(startDate, endDate, Prefix);
-            return ExecuteQuery(string.Format(DividendDataUrl, symbol, _apiToken, dateParameters), GetDividendsFromResponse);
+            var dateParameters = Utils.GetDateParametersAsString(startDate, endDate, Prefix);
+            return ExecuteQueryAsync(string.Format(DividendDataUrl, symbol, _apiToken, dateParameters), GetDividendsFromResponseAsync);
         }
 
-        List<Dividend> GetDividendsFromResponse(HttpResponseMessage response)
+        private async Task<List<Dividend>> GetDividendsFromResponseAsync(HttpResponseMessage response)
         {
-            return Dividend.FromJson(response.Content.ReadAsStringAsync().Result);
+            return Dividend.FromJson(await response.Content.ReadAsStringAsync());
         }
 
-        internal List<ShareSplit> GetShareSplits(string symbol, DateTime? startDate, DateTime? endDate)
+        internal Task<List<ShareSplit>> GetShareSplitsAsync(string symbol, DateTime? startDate, DateTime? endDate)
         {
-            string dateParameters = Utils.GetDateParametersAsString(startDate, endDate, Prefix);
-            return ExecuteQuery(string.Format(SplitDataUrl, symbol, _apiToken, dateParameters), GetSplitsFromResponse);
+            var dateParameters = Utils.GetDateParametersAsString(startDate, endDate, Prefix);
+            return ExecuteQueryAsync(string.Format(SplitDataUrl, symbol, _apiToken, dateParameters), GetSplitsFromResponseAsync);
         }
 
-        List<ShareSplit> GetSplitsFromResponse(HttpResponseMessage response)
+        private async Task<List<ShareSplit>> GetSplitsFromResponseAsync(HttpResponseMessage response)
         {
-            return ShareSplit.FromJson(response.Content.ReadAsStringAsync().Result);
+            return ShareSplit.FromJson(await response.Content.ReadAsStringAsync());
         }
     }
 }
