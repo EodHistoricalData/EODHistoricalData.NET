@@ -224,5 +224,13 @@ namespace EODHistoricalData.NET
 
             return _exchangesDataClient.GetExchanges();
         }
+        
+        public Task<List<Exchange>> GetExchangeListAsync()
+        {
+            if (_exchangesDataClient == null)
+                _exchangesDataClient = new ExchangesDataClient(_apiToken, _useProxy);
+
+            return _exchangesDataClient.GetExchangesAsync();
+        }
     }
 }

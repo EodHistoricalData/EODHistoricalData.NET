@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
@@ -18,6 +19,16 @@ namespace EODHistoricalData.NET
         private List<Exchange> GetExchangesFromResponse(HttpResponseMessage response)
         {
             return Exchange.FromJson(response.Content.ReadAsStringAsync().Result);
+        }
+        
+        internal Task<List<Exchange>> GetExchangesAsync()
+        {
+            return ExecuteQueryAsync(string.Format(ExchangeListUrl, _apiToken), GetExchangesFromResponseAsync);
+        }
+
+        private async Task<List<Exchange>> GetExchangesFromResponseAsync(HttpResponseMessage response)
+        {
+            return Exchange.FromJson(await response.Content.ReadAsStringAsync());
         }
     }
 }
