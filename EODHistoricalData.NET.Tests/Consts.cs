@@ -4,7 +4,7 @@ namespace EODHistoricalData.NET.Tests
 {
     internal class Consts
     {
-        internal const string ApiToken = "6196dd52f075f9.78362356";
+        internal const string ApiToken = "OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX";
         internal const string TestSymbol = "AAPL.US";
         internal const string TestSymbolNonParsingData = "ALF.US";
         internal const string TestSymbolNullData = "AEDAUD.FOREX";
