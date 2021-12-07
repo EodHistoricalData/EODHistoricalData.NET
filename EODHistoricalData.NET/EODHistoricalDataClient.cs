@@ -144,7 +144,6 @@ namespace EODHistoricalData.NET
             return symbols.Select(x => _fundamentalDataClient.GetFundamentalStock(x)).ToList();
         }
         
-
         /// <summary>
         /// To get an access to bulk fundamentals API,
         /// you should subscribe to ‘Extended Fundamentals’ package,
