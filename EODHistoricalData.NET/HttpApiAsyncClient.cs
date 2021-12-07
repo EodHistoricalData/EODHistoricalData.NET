@@ -22,8 +22,6 @@ namespace EODHistoricalData.NET
                 _httpClient = new HttpClient();
         }
 
-        protected delegate T QueryHandler<T>(HttpResponseMessage response);
-        
         protected async Task<T> ExecuteQueryAsync<T>(string uri, Func<HttpResponseMessage, Task<T>> handler)
         {
             var response = await _httpClient.GetAsync(uri);

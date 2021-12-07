@@ -5,8 +5,8 @@ namespace EODHistoricalData.NET
 {
     internal class FundamentalDataClient : HttpApiClient
     {
-        const string FundamentalUrl = @"https://eodhistoricaldata.com/api/fundamentals/{0}?api_token={1}";
-        const string ExchangeUrl = @"https://eodhistoricaldata.com/api/exchanges/{0}?api_token={1}&fmt=json";
+        private const string FundamentalUrl = @"https://eodhistoricaldata.com/api/fundamentals/{0}?api_token={1}";
+        private const string ExchangeUrl = @"https://eodhistoricaldata.com/api/exchanges/{0}?api_token={1}&fmt=json";
 
         internal FundamentalDataClient(string apiToken, bool useProxy) : base(apiToken, useProxy) { }
 

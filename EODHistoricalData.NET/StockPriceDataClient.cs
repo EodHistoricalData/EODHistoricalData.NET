@@ -8,8 +8,8 @@ namespace EODHistoricalData.NET
 {
     internal class StockPriceDataClient : HttpApiClient
     {
-        const string HistoricalDataUrl = "https://eodhistoricaldata.com/api/eod/{0}?{2}&api_token={1}&fmt=json";
-        const string RealTimeDataUrl = "https://eodhistoricaldata.com/api/real-time/{0}?&api_token={1}&fmt=json";
+        private const string HistoricalDataUrl = "https://eodhistoricaldata.com/api/eod/{0}?{2}&api_token={1}&fmt=json";
+        private const string RealTimeDataUrl = "https://eodhistoricaldata.com/api/real-time/{0}?&api_token={1}&fmt=json";
 
         internal StockPriceDataClient(string api, bool useProxy) : base(api, useProxy) { }
 
