@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EODHistoricalData.NET.Tests
 {
@@ -16,21 +15,12 @@ namespace EODHistoricalData.NET.Tests
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
-
-        [TestMethod]
-        public async Task earnings_no_parameters_returns_prices_async()
-        {
-            using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            var earnings = await client.GetEarningsAsync();
-            Assert.IsNotNull(earnings);
-            Assert.IsTrue(earnings.EarningsData.Count > 0);
-        }
         
         [TestMethod]
         public void earnings_with_from_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Earnings earnings = client.GetEarnings(Consts.OptionsStartDate);
+            var earnings = client.GetEarnings(Consts.OptionsStartDate);
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
@@ -39,7 +29,7 @@ namespace EODHistoricalData.NET.Tests
         public void earnings_with_to_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Earnings earnings = client.GetEarnings(null, Consts.OptionsEndDate);
+            var earnings = client.GetEarnings(null, Consts.OptionsEndDate);
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
@@ -48,7 +38,7 @@ namespace EODHistoricalData.NET.Tests
         public void earnings_with_from_and_to_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Earnings earnings = client.GetEarnings(Consts.OptionsStartDate, Consts.OptionsEndDate);
+            var earnings = client.GetEarnings(Consts.OptionsStartDate, Consts.OptionsEndDate);
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
@@ -57,7 +47,7 @@ namespace EODHistoricalData.NET.Tests
         public void earnings_with_symbols_list_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Earnings earnings = client.GetEarnings(null, null, Consts.MultipleSymbolEarnings);
+            var earnings = client.GetEarnings(null, null, Consts.MultipleSymbolEarnings);
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
@@ -70,7 +60,7 @@ namespace EODHistoricalData.NET.Tests
         public void ipos_no_parameters_returns_prices()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Ipos ipos = client.GetIpos();
+            var ipos = client.GetIpos();
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -79,7 +69,7 @@ namespace EODHistoricalData.NET.Tests
         public void ipos_with_from_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Ipos ipos = client.GetIpos(Consts.OptionsStartDate);
+            var ipos = client.GetIpos(Consts.OptionsStartDate);
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -88,7 +78,7 @@ namespace EODHistoricalData.NET.Tests
         public void ipos_with_to_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Ipos ipos = client.GetIpos(null, Consts.OptionsEndDate);
+            var ipos = client.GetIpos(null, Consts.OptionsEndDate);
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -97,7 +87,7 @@ namespace EODHistoricalData.NET.Tests
         public void ipos_with_from_and_to_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Ipos ipos = client.GetIpos(Consts.OptionsStartDate, Consts.OptionsEndDate);
+            var ipos = client.GetIpos(Consts.OptionsStartDate, Consts.OptionsEndDate);
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -106,7 +96,7 @@ namespace EODHistoricalData.NET.Tests
         public void ipos_with_symbols_list_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Ipos ipos = client.GetIpos(null, null, Consts.MultipleSymbolEarnings);
+            var ipos = client.GetIpos(null, null, Consts.MultipleSymbolEarnings);
             Assert.IsNotNull(ipos);
             Assert.IsTrue(ipos.IposData.Count > 0);
         }
@@ -119,7 +109,7 @@ namespace EODHistoricalData.NET.Tests
         public void splits_no_parameters_returns_prices()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            IncomingSplits splits = client.GetIncomingSplits();
+            var splits = client.GetIncomingSplits();
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }
@@ -128,7 +118,7 @@ namespace EODHistoricalData.NET.Tests
         public void splits_with_from_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            IncomingSplits splits = client.GetIncomingSplits(Consts.OptionsStartDate);
+            var splits = client.GetIncomingSplits(Consts.OptionsStartDate);
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }
@@ -137,7 +127,7 @@ namespace EODHistoricalData.NET.Tests
         public void splits_with_to_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            IncomingSplits splits = client.GetIncomingSplits(null, Consts.OptionsEndDate);
+            var splits = client.GetIncomingSplits(null, Consts.OptionsEndDate);
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }
@@ -146,7 +136,7 @@ namespace EODHistoricalData.NET.Tests
         public void splits_with_from_and_to_date_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            IncomingSplits splits = client.GetIncomingSplits(Consts.OptionsStartDate, Consts.OptionsEndDate);
+            var splits = client.GetIncomingSplits(Consts.OptionsStartDate, Consts.OptionsEndDate);
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }
@@ -155,7 +145,7 @@ namespace EODHistoricalData.NET.Tests
         public void splits_with_symbols_list_returns_result()
         {
             using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            IncomingSplits splits = client.GetIncomingSplits(null, null, Consts.MultipleSymbolEarnings);
+            var splits = client.GetIncomingSplits(null, null, Consts.MultipleSymbolEarnings);
             Assert.IsNotNull(splits);
             Assert.IsTrue(splits.Splits.Count > 0);
         }

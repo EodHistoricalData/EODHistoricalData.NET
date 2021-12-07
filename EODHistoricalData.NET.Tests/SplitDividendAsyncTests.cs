@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET.Tests
 {
@@ -9,81 +9,81 @@ namespace EODHistoricalData.NET.Tests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void null_symbol_dividend_throws_exception_async()
+        public async Task null_symbol_dividend_throws_exception_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken);
-            List<Dividend> divs = client.GetDividendsAsync(null, null, null);
+            var divs = await client.GetDividendsAsync(null, null, null);
         }
 
         [TestMethod]
-        public void valid_symbol_dividend_with_no_date_returns_result_async()
+        public async Task valid_symbol_dividend_with_no_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            List<Dividend> divs = client.GetDividendsAsync(Consts.TestSymbol, null, null);
+            var divs = await client.GetDividendsAsync(Consts.TestSymbol, null, null);
             Assert.IsTrue(divs.Count > 0);
         }
 
         [TestMethod]
-        public void valid_symbol_dividend_with_from_date_returns_result_async()
+        public async Task valid_symbol_dividend_with_from_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            List<Dividend> divs = client.GetDividendsAsync(Consts.TestSymbol, Consts.StartDate, null);
+            var divs = await client.GetDividendsAsync(Consts.TestSymbol, Consts.StartDate, null);
             Assert.IsTrue(divs.Count > 0);
         }
 
         [TestMethod]
-        public void valid_symbol_dividend_with_to_date_returns_result_async()
+        public async Task valid_symbol_dividend_with_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            List<Dividend> divs = client.GetDividendsAsync(Consts.TestSymbol, null, Consts.EndDate);
+            var divs = await client.GetDividendsAsync(Consts.TestSymbol, null, Consts.EndDate);
             Assert.IsTrue(divs.Count > 0);
         }
 
         [TestMethod]
-        public void valid_symbol_dividend_with_from_and_to_date_returns_result_async()
+        public async Task valid_symbol_dividend_with_from_and_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            List<Dividend> divs = client.GetDividendsAsync(Consts.TestSymbol, Consts.StartDate, Consts.EndDate);
+            var divs = await client.GetDividendsAsync(Consts.TestSymbol, Consts.StartDate, Consts.EndDate);
             Assert.IsTrue(divs.Count > 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void null_symbol_split_throws_exception_async()
+        public async Task null_symbol_split_throws_exception_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken);
-            List<ShareSplit> splits = client.GetShareSplitsAsync(null, null, null);
+            var splits = await client.GetShareSplitsAsync(null, null, null);
         }
 
         [TestMethod]
-        public void valid_symbol_split_with_no_date_returns_result_async()
+        public async Task valid_symbol_split_with_no_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            List<ShareSplit> splits = client.GetShareSplitsAsync(Consts.TestSymbol, null, null);
+            var splits = await client.GetShareSplitsAsync(Consts.TestSymbol, null, null);
             Assert.IsTrue(splits.Count > 0);
         }
 
         [TestMethod]
-        public void valid_symbol_split_with_from_date_returns_result_async()
+        public async Task valid_symbol_split_with_from_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            List<ShareSplit> splits = client.GetShareSplitsAsync(Consts.TestSymbol, Consts.StartDate, null);
+            var splits = await client.GetShareSplitsAsync(Consts.TestSymbol, Consts.StartDate, null);
             Assert.IsTrue(splits.Count > 0);
         }
 
         [TestMethod]
-        public void valid_symbol_split_with_to_date_returns_result_async()
+        public async Task valid_symbol_split_with_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            List<ShareSplit> splits = client.GetShareSplitsAsync(Consts.TestSymbol, null, Consts.EndDate);
+            var splits = await client.GetShareSplitsAsync(Consts.TestSymbol, null, Consts.EndDate);
             Assert.IsTrue(splits.Count > 0);
         }
 
         [TestMethod]
-        public void valid_symbol_split_with_from_and_to_date_returns_result_async()
+        public async Task valid_symbol_split_with_from_and_to_date_returns_result_async()
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            List<ShareSplit> splits = client.GetShareSplitsAsync(Consts.TestSymbol, Consts.StartDate, Consts.EndDate);
+            var splits = await client.GetShareSplitsAsync(Consts.TestSymbol, Consts.StartDate, Consts.EndDate);
             Assert.IsTrue(splits.Count > 0);
         }
     }
