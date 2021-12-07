@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
-    [Obsolete($"This Class is Deprecated, please use {nameof(EODHistoricalDataAsyncClient)} instead.", false)]
+    [Obsolete("This Class is Deprecated, please use EODHistoricalDataAsyncClient instead.", false)]
     public class EODHistoricalDataClient : AuthentifiedClient, IDisposable
     {
         public const string DateFormat = "yyyy-MM-dd";
@@ -24,7 +24,7 @@ namespace EODHistoricalData.NET
 
         private readonly bool _useProxy;
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetHistoricalPricesAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetHistoricalPricesAsync instead.", false)]
         public List<HistoricalPrice> GetHistoricalPrices(string symbol, DateTime? startDate, DateTime? endDate)
         {
             if (symbol == null)
@@ -36,7 +36,7 @@ namespace EODHistoricalData.NET
             return _stockPriceDataClient.GetHistoricalPrices(symbol, startDate, endDate);
         }
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetRealTimePriceAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetRealTimePriceAsync instead.", false)]
         public RealTimePrice GetRealTimePrice(string symbol)
         {
             if (symbol == null)
@@ -48,7 +48,7 @@ namespace EODHistoricalData.NET
             return _stockPriceDataClient.GetRealTimePrice(symbol);
         }
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetRealTimePricesAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetRealTimePricesAsync instead.", false)]
         public List<RealTimePrice> GetRealTimePrices(string[] symbols)
         {
             if (symbols == null)
@@ -66,7 +66,7 @@ namespace EODHistoricalData.NET
             return _stockPriceDataClient.GetRealTimePrices(symbols);
         }
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetDividendsAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetDividendsAsync instead.", false)]
         public List<Dividend> GetDividends(string symbol, DateTime? startDate, DateTime? endDate)
         {
             if (symbol == null)
@@ -78,7 +78,7 @@ namespace EODHistoricalData.NET
             return _splitDividendClient.GetDividends(symbol, startDate, endDate);
         }
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetShareSplitsAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetShareSplitsAsync instead.", false)]
         public List<ShareSplit> GetShareSplits(string symbol, DateTime? startDate, DateTime? endDate)
         {
             if (symbol == null)
@@ -90,7 +90,7 @@ namespace EODHistoricalData.NET
             return _splitDividendClient.GetShareSplits(symbol, startDate, endDate);
         }
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetOptionsAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetOptionsAsync instead.", false)]
         public Options GetOptions(string symbol, DateTime? startDate, DateTime? endDate, DateTime? startTradeDate = null, DateTime? endTradeDate = null)
         {
             if (symbol == null)
@@ -102,7 +102,7 @@ namespace EODHistoricalData.NET
             return _optionsClient.GetOptions(symbol, startDate, endDate);
         }
         
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetEarningsAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetEarningsAsync instead.", false)]
         public Earnings GetEarnings(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             if (_calenderClient == null)
@@ -111,7 +111,7 @@ namespace EODHistoricalData.NET
             return _calenderClient.GetEarnings(startDate, endDate, symbols);
         }
         
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetIposAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use EODHistoricalDataAsyncClient.GetIposAsync instead.", false)]
         public Ipos GetIpos(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             if (_calenderClient == null)
@@ -120,7 +120,7 @@ namespace EODHistoricalData.NET
             return _calenderClient.GetIpos(startDate, endDate, symbols);
         }
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetIncomingSplitsAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetIncomingSplitsAsync instead.", false)]
         public IncomingSplits GetIncomingSplits(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             if (_calenderClient == null)
@@ -129,13 +129,13 @@ namespace EODHistoricalData.NET
             return _calenderClient.GetIncomingSplits(startDate, endDate, symbols);
         }
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetFundamentalStockAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetFundamentalStockAsync instead.", false)]
         public FundamentalStock GetFundamentalStock(string symbol)
         {
             return GetFundamentalStock((new[] { symbol }).ToList()).FirstOrDefault();
         }
         
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetFundamentalStockAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetFundamentalStockAsync instead.", false)]
         public IList<FundamentalStock> GetFundamentalStock(IList<string> symbols)
         {
             if (_fundamentalDataClient == null)
@@ -161,7 +161,7 @@ namespace EODHistoricalData.NET
         /// <param name="offset">The number of records to skip</param>
         /// <param name="limit">If the ‘limit’ parameter is bigger than 1000, it will be reset to 1000.</param>
         /// <returns></returns>
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetBulkFundamentalStocksAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetBulkFundamentalStocksAsync instead.", false)]
         public BulkFundamentalStocks GetBulkFundamentalStocks(string exchange, int offset = 0, int limit = 1000)
         {
             if (_fundamentalDataClient == null)
@@ -169,7 +169,7 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetBulkFundamentalsStocks(exchange, offset, limit);
         }
 
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetFundamentalFundAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetFundamentalFundAsync instead.", false)]
         public FundamentalFund GetFundamentalFund(string symbol)
         {
             if (_fundamentalDataClient == null)
@@ -178,7 +178,7 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetFundamentalFund(symbol);
         }
         
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetFundamentalETFAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetFundamentalETFAsync instead.", false)]
         public FundamentalETF GetFundamentalETF(string symbol)
         {
             if (_fundamentalDataClient == null)
@@ -187,7 +187,7 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetFundamentalETF(symbol);
         }
         
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetIndexCompositionAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetIndexCompositionAsync instead.", false)]
         public IndexComposition GetIndexComposition(string symbol)
         {
             if (_fundamentalDataClient == null)
@@ -196,7 +196,7 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetIndexComposition(symbol);
         }
         
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetExchangeInstrumentsAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetExchangeInstrumentsAsync instead.", false)]
         public List<Instrument> GetExchangeInstruments(string exchangeCode)
         {
             if (_fundamentalDataClient == null)
@@ -205,7 +205,7 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetExchangeInstruments(exchangeCode);
         }
         
-        [Obsolete($"This Method is Deprecated, please use {nameof(EODHistoricalDataAsyncClient.GetExchangeListAsync)} instead.", false)]
+        [Obsolete("This Method is Deprecated, please use GetExchangeListAsync instead.", false)]
         public List<Exchange> GetExchangeList()
         {
             if (_exchangesDataClient == null)
