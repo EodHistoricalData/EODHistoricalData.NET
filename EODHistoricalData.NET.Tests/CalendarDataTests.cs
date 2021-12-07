@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EODHistoricalData.NET.Tests
 {
@@ -10,12 +11,21 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public void earnings_no_parameters_returns_prices()
         {
-            EODHistoricalDataClient client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            Earnings earnings = client.GetEarnings();
+            var client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            var earnings = client.GetEarnings();
             Assert.IsNotNull(earnings);
             Assert.IsTrue(earnings.EarningsData.Count > 0);
         }
 
+        [TestMethod]
+        public async Task earnings_no_parameters_returns_prices_async()
+        {
+            var client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            var earnings = await client.GetEarningsAsync();
+            Assert.IsNotNull(earnings);
+            Assert.IsTrue(earnings.EarningsData.Count > 0);
+        }
+        
         [TestMethod]
         public void earnings_with_from_date_returns_result()
         {

@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
-    internal class HttpApiClient : AuthentifiedClient
+    internal class HttpApiClient : AuthentifiedClient, IDisposable
     {
-        protected HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         internal HttpApiClient(string apiToken, bool useProxy) : base(apiToken)
         {
             WebRequest.DefaultWebProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
             if (useProxy)
             {
-                HttpClientHandler myHandler = new HttpClientHandler();
+                var myHandler = new HttpClientHandler();
                 myHandler.DefaultProxyCredentials = CredentialCache.DefaultCredentials;
                 _httpClient = new HttpClient(myHandler);
             }
@@ -38,6 +38,11 @@ namespace EODHistoricalData.NET
             if (response.IsSuccessStatusCode)
                 return await handler(response);
             throw new HttpRequestException($"There was an error while executing the HTTP query. Reason: {response.ReasonPhrase}");
+        }
+
+        public void Dispose()
+        {
+            _httpClient?.Dispose();
         }
     }
 }

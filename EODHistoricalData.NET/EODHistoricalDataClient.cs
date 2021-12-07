@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
-    public class EODHistoricalDataClient : AuthentifiedClient
+    public class EODHistoricalDataClient : AuthentifiedClient, IDisposable
     {
         public const string DateFormat = "yyyy-MM-dd";
 
@@ -104,6 +104,14 @@ namespace EODHistoricalData.NET
             return _calenderClient.GetEarnings(startDate, endDate, symbols);
         }
 
+        public Task<Earnings> GetEarningsAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
+        {
+            if (_calenderClient == null)
+                _calenderClient = new CalendarDataClient(_apiToken, _useProxy);
+
+            return _calenderClient.GetEarningsAsync(startDate, endDate, symbols);
+        }
+        
         public Ipos GetIpos(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             if (_calenderClient == null)
@@ -231,6 +239,16 @@ namespace EODHistoricalData.NET
                 _exchangesDataClient = new ExchangesDataClient(_apiToken, _useProxy);
 
             return _exchangesDataClient.GetExchangesAsync();
+        }
+
+        public void Dispose()
+        {
+            _stockPriceDataClient?.Dispose();
+            _splitDividendClient?.Dispose();
+            _optionsClient?.Dispose();
+            _calenderClient?.Dispose();
+            _fundamentalDataClient?.Dispose();
+            _exchangesDataClient?.Dispose();
         }
     }
 }

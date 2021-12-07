@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
@@ -34,6 +35,17 @@ namespace EODHistoricalData.NET
             return Earnings.FromJson(response.Content.ReadAsStringAsync().Result);
         }
 
+        internal Task<Earnings> GetEarningsAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
+        {
+            var sb = HandleParameters(startDate, endDate, symbols);
+            return ExecuteQueryAsync(string.Format(EarningsUrl, _apiToken, sb.ToString()), GetEarningsFromResponseAsync);
+        }
+        
+        private async Task<Earnings> GetEarningsFromResponseAsync(HttpResponseMessage response)
+        {
+            return Earnings.FromJson(await response.Content.ReadAsStringAsync());
+        }
+        
         internal Ipos GetIpos(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             StringBuilder sb = HandleParameters(startDate, endDate, symbols);
