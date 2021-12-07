@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
@@ -132,6 +133,29 @@ namespace EODHistoricalData.NET
             return symbols.Select(x => _fundamentalDataClient.GetFundamentalStock(x)).ToList();
         }
 
+        /// <summary>
+        /// To get an access to bulk fundamentals API,
+        /// you should subscribe to ‘Extended Fundamentals’ package,
+        /// more details we will provide by request: support@eodhistoricaldata.com.
+        /// 
+        /// It doesn’t work for entire US exchange,
+        /// instead of it you should request each exchange separately,
+        /// at the moment we do support:
+        /// NASDAQ, NYSE (or ‘NYSE MKT’), BATS, and AMEX.
+        /// All non-US exchanges supported as is.
+        ///
+        /// By default offset = 0 and limit = 1000
+        /// </summary>
+        /// <param name="exchange">The exchange code</param>
+        /// <param name="offset">The number of records to skip</param>
+        /// <param name="limit">If the ‘limit’ parameter is bigger than 1000, it will be reset to 1000.</param>
+        /// <returns></returns>
+        public BulkFundamentalStocks GetBulkFundamentalStocks(string exchange, int offset = 0, int limit = 1000)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+            return _fundamentalDataClient.GetBulkFundamentalsStocks(exchange, offset, limit);
+        }
 
         public FundamentalFund GetFundamentalFund(string symbol)
         {

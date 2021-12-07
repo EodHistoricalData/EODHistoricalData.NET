@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
@@ -7,7 +8,8 @@ namespace EODHistoricalData.NET
     {
         const string FundamentalUrl = @"https://eodhistoricaldata.com/api/fundamentals/{0}?api_token={1}";
         const string ExchangeUrl = @"https://eodhistoricaldata.com/api/exchanges/{0}?api_token={1}&fmt=json";
-
+        const string BulkFundamentalUrl = @"https://eodhistoricaldata.com/api/bulk-fundamentals/{0}?api_token={1}&offset={2}&limit={3}&fmt=json";
+        
         internal FundamentalDataClient(string apiToken, bool useProxy) : base(apiToken, useProxy) { }
 
         internal FundamentalStock GetFundamentalStock(string symbol)
@@ -20,6 +22,22 @@ namespace EODHistoricalData.NET
             return FundamentalStock.FromJson(response.Content.ReadAsStringAsync().Result);
         }
 
+        internal BulkFundamentalStocks GetBulkFundamentalsStocks(string exchange, int offset, int limit)
+        {
+            // https://eodhistoricaldata.com/financial-apis/stock-etfs-fundamental-data-feeds/#Bulk_Fundamentals_API
+            // If the ‘limit’ parameter is bigger than 1000, it will be reset to 1000.
+            if (limit > 1000)
+            {
+                limit = 1000;
+            }
+            return ExecuteQuery(string.Format(BulkFundamentalUrl, exchange, _apiToken, offset, limit), GetBulkFundamentalStocksFromResponse);
+        }
+
+        private BulkFundamentalStocks GetBulkFundamentalStocksFromResponse(HttpResponseMessage response)
+        {
+            return BulkFundamentalStocks.FromJson(response.Content.ReadAsStringAsync().Result);
+        }
+        
         internal FundamentalETF GetFundamentalETF(string symbol)
         {
             return ExecuteQuery(string.Format(FundamentalUrl, symbol, _apiToken), GetFundamentalETFFromResponse);
