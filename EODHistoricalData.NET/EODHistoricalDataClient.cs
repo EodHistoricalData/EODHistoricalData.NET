@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
@@ -124,6 +125,12 @@ namespace EODHistoricalData.NET
             return GetFundamentalStock((new[] { symbol }).ToList()).FirstOrDefault();
         }
 
+        public async Task<FundamentalStock> GetFundamentalStockAsync(string symbol)
+        {
+            var results = await GetFundamentalStockAsync((new[] { symbol }).ToList());
+            return results.FirstOrDefault();
+        }
+        
         public IList<FundamentalStock> GetFundamentalStock(IList<string> symbols)
         {
             if (_fundamentalDataClient == null)
@@ -132,7 +139,20 @@ namespace EODHistoricalData.NET
             return symbols.Select(x => _fundamentalDataClient.GetFundamentalStock(x)).ToList();
         }
 
+        public async Task<IList<FundamentalStock>> GetFundamentalStockAsync(IList<string> symbols)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
 
+            var list = new List<FundamentalStock>();
+            foreach (var symbol in symbols)
+            {
+                list.Add(await _fundamentalDataClient.GetFundamentalStockAsync(symbol));
+            }
+            
+            return list;
+        }
+        
         public FundamentalFund GetFundamentalFund(string symbol)
         {
             if (_fundamentalDataClient == null)
@@ -140,6 +160,15 @@ namespace EODHistoricalData.NET
 
             return _fundamentalDataClient.GetFundamentalFund(symbol);
         }
+        
+        public Task<FundamentalFund> GetFundamentalFundAsync(string symbol)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetFundamentalFundAsync(symbol);
+        }
+        
         public FundamentalETF GetFundamentalETF(string symbol)
         {
             if (_fundamentalDataClient == null)
@@ -162,6 +191,14 @@ namespace EODHistoricalData.NET
                 _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
 
             return _fundamentalDataClient.GetExchangeInstruments(exchangeCode);
+        }
+        
+        public Task<List<Instrument>> GetExchangeInstrumentsAsync(string exchangeCode)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetExchangeInstrumentsAsync(exchangeCode);
         }
         
         public List<Exchange> GetExchangeList()

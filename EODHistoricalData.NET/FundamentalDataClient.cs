@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
@@ -20,6 +22,16 @@ namespace EODHistoricalData.NET
             return FundamentalStock.FromJson(response.Content.ReadAsStringAsync().Result);
         }
 
+        internal Task<FundamentalStock> GetFundamentalStockAsync(string symbol)
+        {
+            return ExecuteQueryAsync(string.Format(FundamentalUrl, symbol, _apiToken), GetFundamentalStockFromResponseAsync);
+        }
+        
+        private async Task<FundamentalStock> GetFundamentalStockFromResponseAsync(HttpResponseMessage response)
+        {
+            return FundamentalStock.FromJson(await response.Content.ReadAsStringAsync());
+        }
+        
         internal FundamentalETF GetFundamentalETF(string symbol)
         {
             return ExecuteQuery(string.Format(FundamentalUrl, symbol, _apiToken), GetFundamentalETFFromResponse);
@@ -40,6 +52,16 @@ namespace EODHistoricalData.NET
             return FundamentalFund.FromJson(response.Content.ReadAsStringAsync().Result);
         }
 
+        internal Task<FundamentalFund> GetFundamentalFundAsync(string symbol)
+        {
+            return ExecuteQueryAsync(string.Format(FundamentalUrl, symbol, _apiToken), GetFundamentalFundFromResponseAsync);
+        }
+
+        private async Task<FundamentalFund> GetFundamentalFundFromResponseAsync(HttpResponseMessage response)
+        {
+            return FundamentalFund.FromJson(await response.Content.ReadAsStringAsync());
+        }
+        
         internal IndexComposition GetIndexComposition(string symbol)
         {
             return ExecuteQuery(string.Format(FundamentalUrl, symbol, _apiToken), GetIndexCompositionFromResponse);
@@ -58,6 +80,16 @@ namespace EODHistoricalData.NET
         private List<Instrument> GetExchangeInstrumentsFromResponse(HttpResponseMessage response)
         {
             return Instrument.FromJson(response.Content.ReadAsStringAsync().Result);
+        }
+        
+        internal Task<List<Instrument>> GetExchangeInstrumentsAsync(string exchangeCode)
+        {
+            return ExecuteQueryAsync(string.Format(ExchangeUrl, exchangeCode, _apiToken), GetExchangeInstrumentsFromResponseAsync);
+        }
+
+        private async Task<List<Instrument>> GetExchangeInstrumentsFromResponseAsync(HttpResponseMessage response)
+        {
+            return Instrument.FromJson(await response.Content.ReadAsStringAsync());
         }
     }
 }
