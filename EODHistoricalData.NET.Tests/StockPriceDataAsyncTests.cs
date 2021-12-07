@@ -62,9 +62,9 @@ namespace EODHistoricalData.NET.Tests
         }
 
         [TestMethod]
-        public void historical_valid_symbols_throws_not_found_async()
+        public async Task historical_valid_symbols_throws_not_found_async()
         {
-            Assert.ThrowsException<System.Net.Http.HttpRequestException>(async () =>
+            await Assert.ThrowsExceptionAsync<System.Net.Http.HttpRequestException>(async () =>
             {
                 using var  client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
                 var prices = await client.GetHistoricalPricesAsync(Consts.TestSymbolReturnsEmpty, null, null);
