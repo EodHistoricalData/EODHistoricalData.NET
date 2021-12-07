@@ -26,11 +26,19 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public void fundamental_etf_returns_data()
         {
-            EODHistoricalDataClient client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            FundamentalETF fundamental = client.GetFundamentalETF(Consts.TestETF);
+            var client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            var fundamental = client.GetFundamentalETF(Consts.TestETF);
             Assert.IsNotNull(fundamental);
         }
 
+        [TestMethod]
+        public async Task fundamental_etf_returns_data_async()
+        {
+            var client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            var fundamental = await client.GetFundamentalETFAsync(Consts.TestETF);
+            Assert.IsNotNull(fundamental);
+        }
+        
         [TestMethod]
         public void fundamental_fund_returns_data()
         {
@@ -50,11 +58,19 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public void index_composition_returns_data()
         {
-            EODHistoricalDataClient client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            IndexComposition index = client.GetIndexComposition(Consts.TestIndex);
+            var client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            var index = client.GetIndexComposition(Consts.TestIndex);
             Assert.IsNotNull(index);
         }
 
+        [TestMethod]
+        public async Task index_composition_returns_data_async()
+        {
+            var client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            var index = await client.GetIndexCompositionAsync(Consts.TestIndex);
+            Assert.IsNotNull(index);
+        }
+        
         [TestMethod]
         public void exchange_instruments_returns_data()
         {

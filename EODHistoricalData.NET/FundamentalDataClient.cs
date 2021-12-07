@@ -42,6 +42,16 @@ namespace EODHistoricalData.NET
             return FundamentalETF.FromJson(response.Content.ReadAsStringAsync().Result);
         }
 
+        internal Task<FundamentalETF> GetFundamentalETFAsync(string symbol)
+        {
+            return ExecuteQueryAsync(string.Format(FundamentalUrl, symbol, _apiToken), GetFundamentalETFFromResponseAsync);
+        }
+
+        private async Task<FundamentalETF> GetFundamentalETFFromResponseAsync(HttpResponseMessage response)
+        {
+            return FundamentalETF.FromJson(await response.Content.ReadAsStringAsync());
+        }
+        
         internal FundamentalFund GetFundamentalFund(string symbol)
         {
             return ExecuteQuery(string.Format(FundamentalUrl, symbol, _apiToken), GetFundamentalFundFromResponse);
@@ -72,6 +82,16 @@ namespace EODHistoricalData.NET
             return IndexComposition.FromJson(response.Content.ReadAsStringAsync().Result);
         }
 
+        internal Task<IndexComposition> GetIndexCompositionAsync(string symbol)
+        {
+            return ExecuteQueryAsync(string.Format(FundamentalUrl, symbol, _apiToken), GetIndexCompositionFromResponseAsync);
+        }
+
+        private async Task<IndexComposition> GetIndexCompositionFromResponseAsync(HttpResponseMessage response)
+        {
+            return IndexComposition.FromJson(await response.Content.ReadAsStringAsync());
+        }
+        
         internal List<Instrument> GetExchangeInstruments(string exchangeCode)
         {
             return ExecuteQuery(string.Format(ExchangeUrl, exchangeCode, _apiToken), GetExchangeInstrumentsFromResponse);

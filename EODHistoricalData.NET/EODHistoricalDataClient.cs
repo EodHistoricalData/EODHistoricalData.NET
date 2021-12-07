@@ -177,6 +177,14 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetFundamentalETF(symbol);
         }
 
+        public Task<FundamentalETF> GetFundamentalETFAsync(string symbol)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetFundamentalETFAsync(symbol);
+        }
+        
         public IndexComposition GetIndexComposition(string symbol)
         {
             if (_fundamentalDataClient == null)
@@ -185,6 +193,14 @@ namespace EODHistoricalData.NET
             return _fundamentalDataClient.GetIndexComposition(symbol);
         }
 
+        public Task<IndexComposition> GetIndexCompositionAsync(string symbol)
+        {
+            if (_fundamentalDataClient == null)
+                _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
+
+            return _fundamentalDataClient.GetIndexCompositionAsync(symbol);
+        }
+        
         public List<Instrument> GetExchangeInstruments(string exchangeCode)
         {
             if (_fundamentalDataClient == null)
