@@ -119,14 +119,5 @@ namespace EODHistoricalData.NET.Tests
             var price = await client.GetRealTimePriceAsync(Consts.TestSymbol);
             Assert.IsNotNull(price);
         }
-
-        [TestMethod]
-        public async Task realtime_valid_symbol_return_nonparsing_result_async()
-        {
-            using var  client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var price = await client.GetRealTimePriceAsync(Consts.TestSymbolNonParsingData);
-            Assert.IsNotNull(price);
-            Assert.IsTrue(price.ErrorMessages.Count > 1);
-        }
     }
 }
