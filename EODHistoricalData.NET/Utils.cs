@@ -11,7 +11,6 @@ namespace EODHistoricalData.NET
             return GetDateParametersAsString(startDate, endDate, "from", "to", additional);
         }
 
-
         internal static string GetDateParametersAsString(DateTime? startDate, DateTime? endDate, string fromField, string toField, string additional = null)
         {
             StringBuilder sb = new StringBuilder();

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EODHistoricalData.NET
+﻿namespace EODHistoricalData.NET
 {
     public abstract class AuthentifiedClient
     {
-        protected string _apiToken;
+        protected readonly string _apiToken;
 
-        public AuthentifiedClient(string apiToken)
+        protected AuthentifiedClient(string apiToken)
         {
             _apiToken = apiToken;
         }
