@@ -13,6 +13,7 @@ namespace EODHistoricalData.NET.Tests
         internal const string TestETF = "VTI.US";
         internal const string TestFund = "SWPPX.US";
         internal const string Exchange = "PA";
+        internal const string LargeExchange = "LSE";
         internal static readonly DateTime StartDate = DateTime.UtcNow.AddYears(-10).AddDays(-1).Date;
         internal static readonly DateTime EndDate = DateTime.UtcNow.AddYears(-5).AddDays(-1).Date;
         internal static readonly DateTime OptionsStartDate = DateTime.UtcNow.AddYears(-1).AddDays(-2).Date;
