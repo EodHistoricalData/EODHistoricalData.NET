@@ -157,11 +157,12 @@ namespace EODHistoricalData.NET
         /// <param name="offset">The number of records to skip</param>
         /// <param name="limit">If the ‘limit’ parameter is bigger than 1000, it will be reset to 1000.</param>
         /// <returns></returns>
-        public Task<BulkFundamentalStocks> GetBulkFundamentalStocksAsync(string exchange, int offset = 0, int limit = 1000)
+        public async Task<IEnumerable<FundamentalStock>> GetBulkFundamentalStocksAsync(string exchange, int offset = 0, int limit = 1000)
         {
             if (_fundamentalDataAsyncClient == null)
                 _fundamentalDataAsyncClient = new FundamentalDataAsyncClient(_apiToken, _useProxy);
-            return _fundamentalDataAsyncClient.GetBulkFundamentalsStocksAsync(exchange, offset, limit);
+            var results = await _fundamentalDataAsyncClient.GetBulkFundamentalsStocksAsync(exchange, offset, limit);
+            return results?.Values;
         }
         
         public Task<FundamentalFund> GetFundamentalFundAsync(string symbol)

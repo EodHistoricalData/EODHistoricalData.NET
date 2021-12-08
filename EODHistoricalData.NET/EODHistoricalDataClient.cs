@@ -162,11 +162,11 @@ namespace EODHistoricalData.NET
         /// <param name="limit">If the ‘limit’ parameter is bigger than 1000, it will be reset to 1000.</param>
         /// <returns></returns>
         [Obsolete("This Method is Deprecated, please use GetBulkFundamentalStocksAsync instead.", false)]
-        public BulkFundamentalStocks GetBulkFundamentalStocks(string exchange, int offset = 0, int limit = 1000)
+        public IEnumerable<FundamentalStock> GetBulkFundamentalStocks(string exchange, int offset = 0, int limit = 1000)
         {
             if (_fundamentalDataClient == null)
                 _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);
-            return _fundamentalDataClient.GetBulkFundamentalsStocks(exchange, offset, limit);
+            return _fundamentalDataClient.GetBulkFundamentalsStocks(exchange, offset, limit).Values;
         }
 
         [Obsolete("This Method is Deprecated, please use GetFundamentalFundAsync instead.", false)]

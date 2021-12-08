@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EODHistoricalData.NET.Tests
 {
@@ -11,7 +12,7 @@ namespace EODHistoricalData.NET.Tests
             var client = new EODHistoricalDataClient(Consts.ApiToken, true);
             var bulkFundamentalStocks = client.GetBulkFundamentalStocks(Consts.Exchange, 0, 5);
             Assert.IsNotNull(bulkFundamentalStocks);
-            Assert.AreEqual(5, bulkFundamentalStocks.Count);
+            Assert.AreEqual(5, bulkFundamentalStocks.Count());
         }
         
         [TestMethod]
@@ -20,7 +21,7 @@ namespace EODHistoricalData.NET.Tests
             var client = new EODHistoricalDataClient(Consts.ApiToken, true);
             var bulkFundamentalStocks = client.GetBulkFundamentalStocks(Consts.LargeExchange);
             Assert.IsNotNull(bulkFundamentalStocks);
-            Assert.AreEqual(1000, bulkFundamentalStocks.Count);
+            Assert.AreEqual(1000, bulkFundamentalStocks.Count());
         }
         
         [TestMethod]
@@ -29,7 +30,7 @@ namespace EODHistoricalData.NET.Tests
             var client = new EODHistoricalDataClient(Consts.ApiToken, true);
             var bulkFundamentalStocks = client.GetBulkFundamentalStocks(Consts.LargeExchange, 0, 5000);
             Assert.IsNotNull(bulkFundamentalStocks);
-            Assert.AreEqual(1000, bulkFundamentalStocks.Count);
+            Assert.AreEqual(1000, bulkFundamentalStocks.Count());
         }
         
         [TestMethod]
@@ -38,7 +39,7 @@ namespace EODHistoricalData.NET.Tests
             var client = new EODHistoricalDataClient(Consts.ApiToken, true);
             var bulkFundamentalStocks = client.GetBulkFundamentalStocks(Consts.LargeExchange.ToLower(), 0, 5);
             Assert.IsNotNull(bulkFundamentalStocks);
-            Assert.AreEqual(5, bulkFundamentalStocks.Count);
+            Assert.AreEqual(5, bulkFundamentalStocks.Count());
         }
     }
 }
