@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EOD_API_TOKEN: ${{ secrets.EOD_API_TOKEN }}
     timeout-minutes: 15
     steps:
     - name: Checkout
@@ -15,4 +17,5 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release
     - name: Test
+    
       run: dotnet test --configuration Release --no-build

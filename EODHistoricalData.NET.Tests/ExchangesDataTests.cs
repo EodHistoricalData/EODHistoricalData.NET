@@ -8,7 +8,7 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public void exchange_list_returns_data()
         {
-            using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            using var client = new EODHistoricalDataClient(Consts.Instance.ApiToken, true);
             var exchanges = client.GetExchangeList();
             Assert.IsNotNull(exchanges);
             Assert.IsNotNull(exchanges.Count > 50);

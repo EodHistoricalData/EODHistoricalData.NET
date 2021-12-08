@@ -9,40 +9,40 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public async Task fundamental_stock_returns_data_async()
         {
-            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var fundamental = await client.GetFundamentalStockAsync(Consts.TestSymbol);
+            using var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var fundamental = await client.GetFundamentalStockAsync(Consts.Instance.TestSymbol);
             Assert.IsNotNull(fundamental);
         }
 
         [TestMethod]
         public async Task fundamental_etf_returns_data_async()
         {
-            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var fundamental = await client.GetFundamentalETFAsync(Consts.TestETF);
+            using var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var fundamental = await client.GetFundamentalETFAsync(Consts.Instance.TestETF);
             Assert.IsNotNull(fundamental);
         }
 
         [TestMethod]
         public async Task fundamental_fund_returns_data_async()
         {
-            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var fundamental = await client.GetFundamentalFundAsync(Consts.TestFund);
+            using var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var fundamental = await client.GetFundamentalFundAsync(Consts.Instance.TestFund);
             Assert.IsNotNull(fundamental);
         }
         
         [TestMethod]
         public async Task index_composition_returns_data_async()
         {
-            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var index = await client.GetIndexCompositionAsync(Consts.TestIndex);
+            using var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var index = await client.GetIndexCompositionAsync(Consts.Instance.TestIndex);
             Assert.IsNotNull(index);
         }
         
         [TestMethod]
         public async Task exchange_instruments_returns_data_async()
         {
-            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
-            var instruments = await client.GetExchangeInstrumentsAsync(Consts.Exchange);
+            using var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var instruments = await client.GetExchangeInstrumentsAsync(Consts.Instance.Exchange);
             Assert.IsNotNull(instruments);
             Assert.IsNotNull(instruments.Count > 1000);
         }
