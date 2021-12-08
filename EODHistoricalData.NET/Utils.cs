@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace EODHistoricalData.NET
@@ -11,10 +10,9 @@ namespace EODHistoricalData.NET
             return GetDateParametersAsString(startDate, endDate, "from", "to", additional);
         }
 
-
         internal static string GetDateParametersAsString(DateTime? startDate, DateTime? endDate, string fromField, string toField, string additional = null)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             if (additional != null)
                 sb.Append(additional);
             if (startDate.HasValue)

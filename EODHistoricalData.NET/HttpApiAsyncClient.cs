@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
-    internal class HttpApiClient : AuthentifiedClient, IDisposable
+    internal class HttpApiAsyncClient : AuthentifiedClient, IDisposable
     {
         private readonly HttpClient _httpClient;
 
-        internal HttpApiClient(string apiToken, bool useProxy) : base(apiToken)
+        internal HttpApiAsyncClient(string apiToken, bool useProxy) : base(apiToken)
         {
             WebRequest.DefaultWebProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
             if (useProxy)
@@ -21,13 +22,11 @@ namespace EODHistoricalData.NET
                 _httpClient = new HttpClient();
         }
 
-        protected delegate T QueryHandler<T>(HttpResponseMessage response);
-
-        protected T ExecuteQuery<T>(string uri, QueryHandler<T> handler)
+        protected async Task<T> ExecuteQueryAsync<T>(string uri, Func<HttpResponseMessage, Task<T>> handler)
         {
-            var response = _httpClient.GetAsync(uri).Result;
+            var response = await _httpClient.GetAsync(uri);
             if (response.IsSuccessStatusCode)
-                return handler(response);
+                return await handler(response);
             throw new HttpRequestException($"There was an error while executing the HTTP query. Reason: {response.ReasonPhrase}");
         }
 

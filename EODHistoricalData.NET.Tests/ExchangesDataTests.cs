@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 
 namespace EODHistoricalData.NET.Tests
 {
@@ -9,8 +8,8 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public void exchange_list_returns_data()
         {
-            EODHistoricalDataClient client = new EODHistoricalDataClient(Consts.ApiToken, true);
-            List<Exchange> exchanges = client.GetExchangeList();
+            using var client = new EODHistoricalDataClient(Consts.ApiToken, true);
+            var exchanges = client.GetExchangeList();
             Assert.IsNotNull(exchanges);
             Assert.IsNotNull(exchanges.Count > 50);
         }

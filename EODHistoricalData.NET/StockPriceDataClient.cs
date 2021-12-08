@@ -8,14 +8,14 @@ namespace EODHistoricalData.NET
 {
     internal class StockPriceDataClient : HttpApiClient
     {
-        const string HistoricalDataUrl = "https://eodhistoricaldata.com/api/eod/{0}?{2}&api_token={1}&fmt=json";
-        const string RealTimeDataUrl = "https://eodhistoricaldata.com/api/real-time/{0}?&api_token={1}&fmt=json";
+        private const string HistoricalDataUrl = "https://eodhistoricaldata.com/api/eod/{0}?{2}&api_token={1}&fmt=json";
+        private const string RealTimeDataUrl = "https://eodhistoricaldata.com/api/real-time/{0}?&api_token={1}&fmt=json";
 
         internal StockPriceDataClient(string api, bool useProxy) : base(api, useProxy) { }
 
         internal List<HistoricalPrice> GetHistoricalPrices(string symbol, DateTime? startDate, DateTime? endDate)
         {
-            string dateParameters = Utils.GetDateParametersAsString(startDate, endDate);
+            var dateParameters = Utils.GetDateParametersAsString(startDate, endDate);
             return ExecuteQuery(string.Format(HistoricalDataUrl, symbol, _apiToken, dateParameters), GetHistoricalPricesFromResponse);
         }
 
@@ -26,9 +26,9 @@ namespace EODHistoricalData.NET
 
         internal List<RealTimePrice> GetRealTimePrices(string[] symbols)
         {
-            string first = symbols[0];
-            string[] others = symbols.Skip(1).ToArray();
-            StringBuilder sb = new StringBuilder();
+            var first = symbols[0];
+            var others = symbols.Skip(1).ToArray();
+            var sb = new StringBuilder();
             sb.Append(string.Format(RealTimeDataUrl, first, _apiToken));
             sb.Append($"&s={string.Join(",", others)}");
 

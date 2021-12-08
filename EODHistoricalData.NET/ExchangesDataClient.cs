@@ -5,7 +5,7 @@ namespace EODHistoricalData.NET
 {
     internal class ExchangesDataClient : HttpApiClient
     {
-        const string ExchangeListUrl =
+        private const string ExchangeListUrl =
             @"https://eodhistoricaldata.com/api/exchanges-list/?api_token={0}&fmt=json";
         
         internal ExchangesDataClient(string apiToken, bool useProxy) : base(apiToken, useProxy) { }
