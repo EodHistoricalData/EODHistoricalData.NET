@@ -2,13 +2,36 @@
 
 namespace EODHistoricalData.NET.Tests
 {
-    internal class Consts
+    internal class Constants
     {
-        internal static Consts Instance = new();
+
+        private static volatile object _lockObject = new object();
         
-        private Consts()
+        private static Constants _instance;
+
+        internal static Constants Instance
         {
-            ApiToken = Environment.GetEnvironmentVariable("EOD_API_TOKEN");
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lockObject)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new Constants();
+                            _instance.ApiToken = Environment.GetEnvironmentVariable("EOD_API_TOKEN");
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
+        private Constants()
+        {
+            // ApiToken = Environment.GetEnvironmentVariable("EOD_API_TOKEN");
         }
 
         internal string ApiToken { get; set; }

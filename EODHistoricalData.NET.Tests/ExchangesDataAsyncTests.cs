@@ -9,7 +9,7 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public async Task exchange_list_returns_data_async()
         {
-            using var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            using var client = new EODHistoricalDataAsyncClient(Constants.Instance.ApiToken, true);
             var exchanges = await client.GetExchangeListAsync();
             Assert.IsNotNull(exchanges);
             Assert.IsNotNull(exchanges.Count > 50);
