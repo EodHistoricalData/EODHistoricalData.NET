@@ -2,33 +2,27 @@
 
 namespace EODHistoricalData.NET.Tests
 {
-    internal class Consts
+    internal static class Consts
     {
-        internal static Consts Instance = new();
-        
-        private Consts()
-        {
-            ApiToken = Environment.GetEnvironmentVariable("EOD_API_TOKEN");
-        }
+        internal static string ApiToken => Environment.GetEnvironmentVariable("EOD_API_TOKEN");
 
-        internal string ApiToken { get; set; }
-        internal string TestSymbol = "AAPL.US";
-        internal string TestSymbolNonParsingData = "ALF.US";
-        internal string TestSymbolNullData = "AEDAUD.FOREX";
-        internal string TestSymbolReturnsEmpty = "VRGWX.NMFQS";
-        internal string TestIndex = "FCHI.INDX";
-        internal string TestETF = "VTI.US";
-        internal string TestFund = "SWPPX.US";
-        internal string Exchange = "PA";
-        internal string LargeExchange = "LSE";
-        internal DateTime StartDate = DateTime.UtcNow.AddYears(-10).AddDays(-1).Date;
-        internal DateTime EndDate = DateTime.UtcNow.AddYears(-5).AddDays(-1).Date;
-        internal DateTime OptionsStartDate = DateTime.UtcNow.AddYears(-1).AddDays(-2).Date;
-        internal DateTime OptionsEndDate = DateTime.UtcNow.AddMonths(-1).AddDays(-1).Date;
-        internal DateTime OptionsFuture3MonthEndDate = DateTime.UtcNow.AddMonths(3).Date;
-        internal DateTime OptionsTradeStartDate = new DateTime(2018, 3, 29);
-        internal DateTime OptionsTradeEndDate = new DateTime(2019, 7, 1);
-        internal string[] MultipleTestSymbol = new[] { Instance.TestSymbol, "VTI", "EUR.FOREX" };
-        internal string[] MultipleSymbolEarnings = new[] { "SNPS.US", "MDI.TO" };
+        internal static string TestSymbol = "AAPL.US";
+        internal static string TestSymbolNonParsingData = "ALF.US";
+        internal static string TestSymbolNullData = "AEDAUD.FOREX";
+        internal static string TestSymbolReturnsEmpty = "VRGWX.NMFQS";
+        internal static string TestIndex = "FCHI.INDX";
+        internal static string TestETF = "VTI.US";
+        internal static string TestFund = "SWPPX.US";
+        internal static string Exchange = "PA";
+        internal static string LargeExchange = "LSE";
+        internal static DateTime StartDate = DateTime.UtcNow.AddYears(-10).AddDays(-1).Date;
+        internal static DateTime EndDate = DateTime.UtcNow.AddYears(-5).AddDays(-1).Date;
+        internal static DateTime OptionsStartDate = DateTime.UtcNow.AddYears(-1).AddDays(-2).Date;
+        internal static DateTime OptionsEndDate = DateTime.UtcNow.AddMonths(-1).AddDays(-1).Date;
+        internal static DateTime OptionsFuture3MonthEndDate = DateTime.UtcNow.AddMonths(3).Date;
+        internal static DateTime OptionsTradeStartDate = new DateTime(2018, 3, 29);
+        internal static DateTime OptionsTradeEndDate = new DateTime(2019, 7, 1);
+        internal static string[] MultipleTestSymbol = new[] { TestSymbol, "VTI", "EUR.FOREX" };
+        internal static string[] MultipleSymbolEarnings = new[] { "SNPS.US", "MDI.TO" };
     }
 }
