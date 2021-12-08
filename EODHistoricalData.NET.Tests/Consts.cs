@@ -4,7 +4,7 @@ namespace EODHistoricalData.NET.Tests
 {
     internal class Consts
     {
-        internal const string ApiToken = "OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX";
+        internal const string ApiToken = "6196dd52f075f9.78362356";
         internal const string TestSymbol = "AAPL.US";
         internal const string TestSymbolNonParsingData = "ALF.US";
         internal const string TestSymbolNullData = "AEDAUD.FOREX";
@@ -18,6 +18,7 @@ namespace EODHistoricalData.NET.Tests
         internal static readonly DateTime EndDate = DateTime.UtcNow.AddYears(-5).AddDays(-1).Date;
         internal static readonly DateTime OptionsStartDate = DateTime.UtcNow.AddYears(-1).AddDays(-2).Date;
         internal static readonly DateTime OptionsEndDate = DateTime.UtcNow.AddMonths(-1).AddDays(-1).Date;
+        internal static readonly DateTime OptionsFuture3MonthEndDate = DateTime.UtcNow.AddMonths(3).Date;
         internal static readonly DateTime OptionsTradeStartDate = new DateTime(2018, 3, 29);
         internal static readonly DateTime OptionsTradeEndDate = new DateTime(2019, 7, 1);
         internal static readonly string[] MultipleTestSymbol = new[] { TestSymbol, "VTI", "EUR.FOREX" };
