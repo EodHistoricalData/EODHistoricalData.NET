@@ -9,8 +9,8 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public async Task bulk_fundamental_stocks_returns_data()
         {
-            var client = new EODHistoricalDataAsyncClient(Constants.Instance.ApiToken, true);
-            var bulkFundamentalStocks = await client.GetBulkFundamentalStocksAsync(Constants.Instance.Exchange, 0, 5);
+            var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var bulkFundamentalStocks = await client.GetBulkFundamentalStocksAsync(Consts.Instance.Exchange, 0, 5);
             Assert.IsNotNull(bulkFundamentalStocks);
             Assert.AreEqual(5, bulkFundamentalStocks.Count);
         }
@@ -18,8 +18,8 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public async Task bulk_fundamental_stocks_large_returns_data_default_values()
         {
-            var client = new EODHistoricalDataAsyncClient(Constants.Instance.ApiToken, true);
-            var bulkFundamentalStocks = await client.GetBulkFundamentalStocksAsync(Constants.Instance.LargeExchange);
+            var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var bulkFundamentalStocks = await client.GetBulkFundamentalStocksAsync(Consts.Instance.LargeExchange);
             Assert.IsNotNull(bulkFundamentalStocks);
             Assert.AreEqual(1000, bulkFundamentalStocks.Count);
         }
@@ -27,8 +27,8 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public async Task bulk_fundamental_stocks_large_returns_data_no_greater_than_1000()
         {
-            var client = new EODHistoricalDataAsyncClient(Constants.Instance.ApiToken, true);
-            var bulkFundamentalStocks = await client.GetBulkFundamentalStocksAsync(Constants.Instance.LargeExchange, 0, 5000);
+            var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var bulkFundamentalStocks = await client.GetBulkFundamentalStocksAsync(Consts.Instance.LargeExchange, 0, 5000);
             Assert.IsNotNull(bulkFundamentalStocks);
             Assert.AreEqual(1000, bulkFundamentalStocks.Count);
         }
@@ -36,8 +36,8 @@ namespace EODHistoricalData.NET.Tests
         [TestMethod]
         public async Task bulk_fundamental_stocks_returns_data_lower_case_exchange()
         {
-            var client = new EODHistoricalDataAsyncClient(Constants.Instance.ApiToken, true);
-            var bulkFundamentalStocks = await client.GetBulkFundamentalStocksAsync(Constants.Instance.LargeExchange.ToLower(), 0, 5);
+            var client = new EODHistoricalDataAsyncClient(Consts.Instance.ApiToken, true);
+            var bulkFundamentalStocks = await client.GetBulkFundamentalStocksAsync(Consts.Instance.LargeExchange.ToLower(), 0, 5);
             Assert.IsNotNull(bulkFundamentalStocks);
             Assert.AreEqual(5, bulkFundamentalStocks.Count);
         }
