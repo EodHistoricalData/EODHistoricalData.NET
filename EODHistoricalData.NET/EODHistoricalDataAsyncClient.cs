@@ -93,7 +93,7 @@ namespace EODHistoricalData.NET
             if (_optionsDataAsyncClient == null)
                 _optionsDataAsyncClient = new OptionsDataAsyncClient(_apiToken, _useProxy);
 
-            return _optionsDataAsyncClient.GetOptions(symbol, startDate, endDate);
+            return _optionsDataAsyncClient.GetOptionsAsync(symbol, startDate, endDate);
         }
 
         public Task<Earnings> GetEarningsAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)

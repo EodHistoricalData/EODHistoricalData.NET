@@ -10,7 +10,7 @@ namespace EODHistoricalData.NET
 
         internal OptionsDataAsyncClient(string apiToken, bool useProxy) : base(apiToken, useProxy) { }
 
-        internal Task<Options> GetOptions(string symbol, DateTime? startDate, DateTime? endDate, DateTime? tradeStartDate = null, DateTime? tradeEndDate = null)
+        internal Task<Options> GetOptionsAsync(string symbol, DateTime? startDate, DateTime? endDate, DateTime? tradeStartDate = null, DateTime? tradeEndDate = null)
         {
             var dateParameters = Utils.GetDateParametersAsString(startDate, endDate, "&");
             var tradeDateParameters = string.Empty;
