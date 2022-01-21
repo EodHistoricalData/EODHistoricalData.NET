@@ -20,6 +20,7 @@ namespace EODHistoricalData.NET
         private CalendarDataAsyncClient _calendarDataAsyncClient;
         private FundamentalDataAsyncClient _fundamentalDataAsyncClient;
         private ExchangesDataAsyncClient _exchangesDataAsyncClient;
+        private SearchAsyncClient _searchAsyncClient;
 
         private readonly bool _useProxy;
 
@@ -205,6 +206,13 @@ namespace EODHistoricalData.NET
             return _exchangesDataAsyncClient.GetExchangesAsync();
         }
 
+        public Task<List<SearchInstrument>> SearchAsync(string isin)
+        {
+            _searchAsyncClient ??= new SearchAsyncClient(_apiToken, _useProxy);
+
+            return _searchAsyncClient.SearchAsync(isin);
+        }
+        
         public void Dispose()
         {
             _stockPriceDataAsyncClient?.Dispose();
@@ -213,6 +221,7 @@ namespace EODHistoricalData.NET
             _calendarDataAsyncClient?.Dispose();
             _fundamentalDataAsyncClient?.Dispose();
             _exchangesDataAsyncClient?.Dispose();
+            _searchAsyncClient?.Dispose();
         }
     }
 }

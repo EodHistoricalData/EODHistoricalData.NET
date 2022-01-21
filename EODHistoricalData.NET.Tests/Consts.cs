@@ -15,6 +15,8 @@ namespace EODHistoricalData.NET.Tests
         internal static string TestFund = "SWPPX.US";
         internal static string Exchange = "PA";
         internal static string LargeExchange = "LSE";
+        internal static string ValidIsinNumber = "AU0000071482";
+        internal static string TestCompanyName = "apple";
         internal static DateTime StartDate = DateTime.UtcNow.AddYears(-10).AddDays(-1).Date;
         internal static DateTime EndDate = DateTime.UtcNow.AddYears(-5).AddDays(-1).Date;
         internal static DateTime OptionsStartDate = DateTime.UtcNow.AddYears(-1).AddDays(-2).Date;
