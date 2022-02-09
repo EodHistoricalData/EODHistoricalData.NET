@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Text;
 
 namespace EODHistoricalData.NET
@@ -25,6 +26,20 @@ namespace EODHistoricalData.NET
             }
 
             return sb.ToString();
+        }
+
+        internal static int MAX_HTTP_RETRIES = 3;
+
+        internal static bool CheckStatus(HttpStatusCode status)
+        {
+            return status == (HttpStatusCode)429;
+        }
+
+        internal static TimeSpan CalculateRetryInterval(int attempt)
+        {
+            //try to make this the second half of the minute
+            //as this is likely to fail in the first part of the minute
+            return TimeSpan.FromSeconds(attempt * 30 + (30 * (attempt - 1)));
         }
     }
 }
