@@ -11,6 +11,9 @@ namespace EODHistoricalData.NET
     {
         private const string HistoricalDataUrl = "https://eodhistoricaldata.com/api/eod/{0}?{2}&api_token={1}&fmt=json";
         private const string RealTimeDataUrl = "https://eodhistoricaldata.com/api/real-time/{0}?&api_token={1}&fmt=json";
+        private const string BulkLastDayDataUrl = "https://eodhistoricaldata.com/api/eod-bulk-last-day/US?api_token={0}&fmt=json";
+
+        private const string Prefix = "&";
 
         internal StockPriceDataAsyncClient(string api, bool useProxy) : base(api, useProxy) { }
 
@@ -18,6 +21,11 @@ namespace EODHistoricalData.NET
         {
             var dateParameters = Utils.GetDateParametersAsString(startDate, endDate);
             return ExecuteQueryAsync(string.Format(HistoricalDataUrl, symbol, _apiToken, dateParameters), GetHistoricalPricesFromResponseAsync);
+        }
+
+        private async Task<List<BulkHistoricalPrice>> GetBulkHistoricalPricesFromResponseAsync(HttpResponseMessage response)
+        {
+            return BulkHistoricalPrice.GetListFromJson(await response.Content.ReadAsStringAsync()) ?? new List<BulkHistoricalPrice>();
         }
 
         private async Task<List<HistoricalPrice>> GetHistoricalPricesFromResponseAsync(HttpResponseMessage response)
@@ -49,6 +57,21 @@ namespace EODHistoricalData.NET
         private async Task<List<RealTimePrice>> GetRealTimePricesAsync(HttpResponseMessage response)
         {
             return SerializeRealTimePrice.GetListFromJson(await response.Content.ReadAsStringAsync());
+        }
+
+        internal Task<List<BulkHistoricalPrice>> GetLastDayPricesAsync(DateTime? endOfDayDate, string[] symbols = null)
+        {
+            var symbolList = "";
+            if (symbols != null && symbols.Length > 0)
+                symbolList = $"&symbols={string.Join(",", symbols)}";
+
+            var dateParameter = Utils.GetDateParameterAsString(endOfDayDate, Prefix);
+
+            var optionalParameters = "";
+            if (!string.IsNullOrWhiteSpace(dateParameter) || !string.IsNullOrWhiteSpace(symbolList))
+                optionalParameters = string.Format("{0}{1}", dateParameter, symbolList);
+
+            return ExecuteQueryAsync(string.Format(BulkLastDayDataUrl, _apiToken) + optionalParameters, GetBulkHistoricalPricesFromResponseAsync);
         }
     }
 }

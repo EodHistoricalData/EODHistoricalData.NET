@@ -26,5 +26,8 @@ namespace EODHistoricalData.NET.Tests
         internal static DateTime OptionsTradeEndDate = new DateTime(2019, 7, 1);
         internal static string[] MultipleTestSymbol = new[] { TestSymbol, "VTI", "EUR.FOREX" };
         internal static string[] MultipleSymbolEarnings = new[] { "SNPS.US", "MDI.TO" };
+        internal static DateTime CurrentDate = DateTime.UtcNow.Date;
+        internal static DateTime YesterdaysDate = DateTime.UtcNow.AddDays(-1).Date;
+        internal static string[] MultipleSymbolsBulkEOD = new[] { "AAPL", "TSLA" };
     }
 }

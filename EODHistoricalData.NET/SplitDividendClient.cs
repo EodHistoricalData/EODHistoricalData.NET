@@ -19,7 +19,7 @@ namespace EODHistoricalData.NET
             return ExecuteQuery(string.Format(DividendDataUrl, symbol, _apiToken, dateParameters), GetDividendsFromResponse);
         }
 
-        List<Dividend> GetDividendsFromResponse(HttpResponseMessage response)
+        private List<Dividend> GetDividendsFromResponse(HttpResponseMessage response)
         {
             return Dividend.FromJson(response.Content.ReadAsStringAsync().Result);
         }

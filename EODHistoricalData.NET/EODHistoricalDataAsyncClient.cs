@@ -7,8 +7,6 @@ namespace EODHistoricalData.NET
 {
     public class EODHistoricalDataAsyncClient : AuthentifiedClient, IDisposable
     {
-        public const string DateFormat = "yyyy-MM-dd";
-
         public EODHistoricalDataAsyncClient(string api, bool useProxy = false) : base(api)
         {
             _useProxy = useProxy;
@@ -85,7 +83,6 @@ namespace EODHistoricalData.NET
             return _splitDividendAsyncClient.GetShareSplitsAsync(symbol, startDate, endDate);
         }
 
-
         public Task<Options> GetOptionsAsync(string symbol, DateTime? startDate, DateTime? endDate, DateTime? startTradeDate = null, DateTime? endTradeDate = null)
         {
             if (symbol == null)
@@ -104,7 +101,7 @@ namespace EODHistoricalData.NET
 
             return _calendarDataAsyncClient.GetEarningsAsync(startDate, endDate, symbols);
         }
-        
+
         public Task<Ipos> GetIposAsync(DateTime? startDate = null, DateTime? endDate = null, string[] symbols = null)
         {
             if (_calendarDataAsyncClient == null)
@@ -126,7 +123,7 @@ namespace EODHistoricalData.NET
             var results = await GetFundamentalStockAsync((new[] { symbol }).ToList());
             return results.FirstOrDefault();
         }
-        
+
         public async Task<IList<FundamentalStock>> GetFundamentalStockAsync(IList<string> symbols)
         {
             if (_fundamentalDataAsyncClient == null)
@@ -137,10 +134,10 @@ namespace EODHistoricalData.NET
             {
                 list.Add(await _fundamentalDataAsyncClient.GetFundamentalStockAsync(symbol));
             }
-            
+
             return list;
         }
-        
+
         /// <summary>
         /// To get an access to bulk fundamentals API,
         /// you should subscribe to ‘Extended Fundamentals’ package,
@@ -165,7 +162,7 @@ namespace EODHistoricalData.NET
             var results = await _fundamentalDataAsyncClient.GetBulkFundamentalsStocksAsync(exchange, offset, limit);
             return results?.Values;
         }
-        
+
         public Task<FundamentalFund> GetFundamentalFundAsync(string symbol)
         {
             if (_fundamentalDataAsyncClient == null)
@@ -189,7 +186,7 @@ namespace EODHistoricalData.NET
 
             return _fundamentalDataAsyncClient.GetIndexCompositionAsync(symbol);
         }
-        
+
         public Task<List<Instrument>> GetExchangeInstrumentsAsync(string exchangeCode)
         {
             if (_fundamentalDataAsyncClient == null)
@@ -197,7 +194,7 @@ namespace EODHistoricalData.NET
 
             return _fundamentalDataAsyncClient.GetExchangeInstrumentsAsync(exchangeCode);
         }
-        
+
         public Task<List<Exchange>> GetExchangeListAsync()
         {
             if (_exchangesDataAsyncClient == null)
@@ -212,7 +209,34 @@ namespace EODHistoricalData.NET
 
             return _searchAsyncClient.SearchAsync(isin);
         }
-        
+
+        public async Task<IEnumerable<BulkDividend>> GetBulkEndOfLastDayDividendsAsync(DateTime? referenceDate = null)
+        {
+            if (_splitDividendAsyncClient == null)
+                _splitDividendAsyncClient = new SplitDividendAsyncClient(_apiToken, _useProxy);
+
+            var results = await _splitDividendAsyncClient.GetLastDayDividendsAsync(referenceDate);
+            return results;
+        }
+
+        public async Task<IEnumerable<BulkShareSplit>> GetBulkEndOfLastDaySplitsAsync(DateTime? referenceDate = null)
+        {
+            if (_splitDividendAsyncClient == null)
+                _splitDividendAsyncClient = new SplitDividendAsyncClient(_apiToken, _useProxy);
+
+            var results = await _splitDividendAsyncClient.GetLastDaySplitsAsync(referenceDate);
+            return results;
+        }
+
+        public async Task<IEnumerable<BulkHistoricalPrice>> GetBulkEndOfLastDayStocksAsync(DateTime? referenceDate = null, string[] symbols = null)
+        {
+            if (_stockPriceDataAsyncClient == null)
+                _stockPriceDataAsyncClient = new StockPriceDataAsyncClient(_apiToken, _useProxy);
+
+            var results = await _stockPriceDataAsyncClient.GetLastDayPricesAsync(referenceDate, symbols);
+            return results;
+        }
+
         public void Dispose()
         {
             _stockPriceDataAsyncClient?.Dispose();
