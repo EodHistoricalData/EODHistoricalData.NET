@@ -10,6 +10,7 @@ namespace EODHistoricalData.NET
     internal class StockPriceDataAsyncClient : HttpApiAsyncClient
     {
         private const string HistoricalDataUrl = "https://eodhistoricaldata.com/api/eod/{0}?{2}&api_token={1}&fmt=json";
+        private const string HistoricalIntradayDataUrl = "https://eodhistoricaldata.com/api/intraday/{0}?from={2}&to={3}&api_token={1}&fmt=json&interval={4}";
         private const string RealTimeDataUrl = "https://eodhistoricaldata.com/api/real-time/{0}?&api_token={1}&fmt=json";
 
         internal StockPriceDataAsyncClient(string api, bool useProxy) : base(api, useProxy) { }
@@ -23,6 +24,16 @@ namespace EODHistoricalData.NET
         private async Task<List<HistoricalPrice>> GetHistoricalPricesFromResponseAsync(HttpResponseMessage response)
         {
             return HistoricalPrice.GetListFromJson(await response.Content.ReadAsStringAsync()) ?? new List<HistoricalPrice>();
+        }
+
+        internal Task<List<HistoricalIntradayPrice>> GetHistoricalIntradayPricesAsync(string symbol, string interval, DateTime startDate, DateTime endDate) {
+            long startTimestamp = ((DateTimeOffset)startDate).ToUnixTimeSeconds();
+            long endTimestamp = ((DateTimeOffset)endDate).ToUnixTimeSeconds();
+            return ExecuteQueryAsync(string.Format(HistoricalIntradayDataUrl, symbol, _apiToken, startTimestamp, endTimestamp, interval), GetHistoricalIntradayPricesFromResponseAsync);
+        }
+
+        private async Task<List<HistoricalIntradayPrice>> GetHistoricalIntradayPricesFromResponseAsync(HttpResponseMessage response) {
+            return HistoricalIntradayPrice.GetListFromJson(await response.Content.ReadAsStringAsync()) ?? new List<HistoricalIntradayPrice>();
         }
 
         internal Task<List<RealTimePrice>> GetRealTimePricesAsync(string[] symbols)
