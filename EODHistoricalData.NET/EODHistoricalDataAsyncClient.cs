@@ -35,6 +35,32 @@ namespace EODHistoricalData.NET
             return _stockPriceDataAsyncClient.GetHistoricalPricesAsync(symbol, startDate, endDate);
         }
 
+        /// <summary>
+        /// Obtain historical intraday prices for the given symbol
+        /// </summary>
+        /// <param name="symbol">Symbol to obtain</param>
+        /// <param name="interval">Interval for intraday prices. Can be one of 1m, 5m, 1h</param>
+        /// <param name="startDate">Start date for range to obtain. Must be of kind UTC</param>
+        /// <param name="endDate">End date for range to obtain. Must be of kind UTC</param>
+        /// <returns>Historical intray prices for specified parameters</returns>
+        /// <exception cref="ArgumentNullException">Will be thrown when invalid parameters are passed</exception>
+        /// <exception cref="Exception">Will be thrown when invalid parameters are passed</exception>
+        public Task<List<HistoricalIntradayPrice>> GetHistoricalIntradayPricesAsync(string symbol, string interval, DateTime startDate, DateTime endDate) {
+            if (symbol == null)
+                throw new ArgumentNullException("Symbol is null, cannot query prices.");
+            if (startDate.Kind != DateTimeKind.Utc)
+                throw new Exception("Start date is not of UTC kind.");
+            if (startDate.Kind != DateTimeKind.Utc)
+                throw new Exception("End date is not of UTC kind.");
+            if (endDate < startDate)
+                throw new Exception("End date needs to be greater than start date");
+
+            if (_stockPriceDataAsyncClient == null)
+                _stockPriceDataAsyncClient = new StockPriceDataAsyncClient(_apiToken, _useProxy);
+
+            return _stockPriceDataAsyncClient.GetHistoricalIntradayPricesAsync(symbol, interval, startDate, endDate);
+        }
+
         public Task<RealTimePrice> GetRealTimePriceAsync(string symbol)
         {
             if (symbol == null)

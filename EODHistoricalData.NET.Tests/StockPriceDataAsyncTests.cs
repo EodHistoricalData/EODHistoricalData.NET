@@ -72,6 +72,14 @@ namespace EODHistoricalData.NET.Tests
         }
 
         [TestMethod]
+        public async Task historical_intraday_valid_symbol_returns_prices_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+            var prices = await client.GetHistoricalIntradayPricesAsync(Consts.TestSymbol, "1h", DateTime.UtcNow.Subtract(TimeSpan.FromDays(10)), DateTime.UtcNow);
+            Assert.IsTrue(prices.Count > 0);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task realtime_null_list_throws_exception_async()
         {
