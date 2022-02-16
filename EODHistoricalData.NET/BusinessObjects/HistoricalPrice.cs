@@ -14,6 +14,15 @@ namespace EODHistoricalData.NET
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
+    public partial class BulkHistoricalPrice : HistoricalPrice
+    {
+        [JsonProperty("code")]
+        public string Code { get; set; }
+
+        [JsonProperty("exchange_short_name")]
+        public string ExchangeShortName { get; set; }
+    }
+
     public partial class HistoricalPrice
     {
         [JsonProperty("date")]
@@ -36,6 +45,19 @@ namespace EODHistoricalData.NET
 
         [JsonProperty("volume")]
         public long Volume { get; set; }
+
+        [JsonProperty("change")]
+        public double Change { get; set; }
+
+        [JsonProperty("change_p")]
+        public double ChangePercentage { get; set; }
+    }
+
+    public partial class BulkHistoricalPrice
+    {
+        public static new BulkHistoricalPrice FromJson(string json) => JsonConvert.DeserializeObject<BulkHistoricalPrice>(json, EODHistoricalData.NET.ConverterHistoricalPrice.Settings);
+
+        public static new List<BulkHistoricalPrice> GetListFromJson(string json) => JsonConvert.DeserializeObject<List<BulkHistoricalPrice>>(json, EODHistoricalData.NET.ConverterHistoricalPrice.Settings);
     }
 
     public partial class HistoricalPrice
@@ -43,7 +65,6 @@ namespace EODHistoricalData.NET
         public static HistoricalPrice FromJson(string json) => JsonConvert.DeserializeObject<HistoricalPrice>(json, EODHistoricalData.NET.ConverterHistoricalPrice.Settings);
 
         public static List<HistoricalPrice> GetListFromJson(string json) => JsonConvert.DeserializeObject<List<HistoricalPrice>>(json, EODHistoricalData.NET.ConverterHistoricalPrice.Settings);
-
     }
 
     public static class SerializeHistoricalPrice

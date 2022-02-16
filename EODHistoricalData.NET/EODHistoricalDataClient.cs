@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET
 {
     [Obsolete("This Class is Deprecated, please use EODHistoricalDataAsyncClient instead.", false)]
     public class EODHistoricalDataClient : AuthentifiedClient, IDisposable
     {
-        public const string DateFormat = "yyyy-MM-dd";
-
         public EODHistoricalDataClient(string api, bool useProxy = false) : base(api)
         {
             _useProxy = useProxy;

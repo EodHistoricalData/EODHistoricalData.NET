@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,6 +48,21 @@ namespace EODHistoricalData.NET.Tests
         {
             using var  client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
             var prices = await client.GetHistoricalPricesAsync(Consts.TestSymbol, Consts.StartDate, Consts.EndDate);
+            var minDate = prices.Min(x => x.Date).Date;
+            var maxDate = prices.Max(x => x.Date).Date;
+            Assert.IsTrue(minDate == Consts.StartDate);
+            Assert.IsTrue(maxDate == Consts.EndDate);
+        }
+
+        [TestMethod]
+        public async Task historical_valid_symbols_1000_requests_with_from_and_to_date_returns_prices_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+            List<HistoricalPrice> prices = null;
+            for (int i = 0; i < 2000; i++)
+            {
+                prices = await client.GetHistoricalPricesAsync(Consts.TestSymbol, Consts.StartDate, Consts.EndDate);
+            }
             var minDate = prices.Min(x => x.Date).Date;
             var maxDate = prices.Max(x => x.Date).Date;
             Assert.IsTrue(minDate == Consts.StartDate);
@@ -126,6 +142,31 @@ namespace EODHistoricalData.NET.Tests
             using var  client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
             var price = await client.GetRealTimePriceAsync(Consts.TestSymbol);
             Assert.IsNotNull(price);
+        }
+
+        [TestMethod]
+        public async Task last_day_price_symbol_result_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+            var prices = await client.GetBulkEndOfLastDayStocksAsync(Consts.YesterdaysDate, Consts.MultipleSymbolsBulkEOD); 
+            Assert.IsNotNull(prices);
+            Assert.IsTrue(prices.Count() == Consts.MultipleSymbolsBulkEOD.Length);
+        }
+
+        [TestMethod]
+        public async Task last_day_dividend_symbol_result_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+            var dividends = await client.GetBulkEndOfLastDayDividendsAsync(Consts.YesterdaysDate);
+            Assert.IsNotNull(dividends);
+        }
+
+        [TestMethod]
+        public async Task last_day_splits_symbol_result_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+            var splits = await client.GetBulkEndOfLastDaySplitsAsync(Consts.YesterdaysDate);
+            Assert.IsNotNull(splits);
         }
     }
 }

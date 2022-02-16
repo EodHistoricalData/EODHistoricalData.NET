@@ -8,12 +8,8 @@
 
 namespace EODHistoricalData.NET
 {
-    using EODHistoricalData.NET.BusinessObjects;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using System;
     using System.Collections.Generic;
-    using System.Globalization;
 
     public partial class BulkFundamentalStocks : Dictionary<int, FundamentalStock>
     {

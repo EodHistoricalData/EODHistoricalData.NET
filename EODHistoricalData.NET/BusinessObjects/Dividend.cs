@@ -15,6 +15,15 @@ namespace EODHistoricalData.NET
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
+    public partial class BulkDividend : Dividend
+    {
+        [JsonProperty("code")]
+        public string Code { get; set; }
+
+        [JsonProperty("dividend")]
+        public new string Value { get; set; }
+    }
+
     public partial class Dividend
     {
         [JsonProperty("date")]
@@ -45,6 +54,11 @@ namespace EODHistoricalData.NET
     public partial class Dividend
     {
         public static List<Dividend> FromJson(string json) => JsonConvert.DeserializeObject<List<Dividend>>(json, EODHistoricalData.NET.ConverterDividend.Settings);
+    }
+
+    public partial class BulkDividend
+    {
+        public static new List<BulkDividend> FromJson(string json) => JsonConvert.DeserializeObject<List<BulkDividend>>(json, EODHistoricalData.NET.ConverterDividend.Settings);
     }
 
     public static class SerializeDividend

@@ -19,7 +19,7 @@ namespace EODHistoricalData.NET
             return ExecuteQuery(string.Format(HistoricalDataUrl, symbol, _apiToken, dateParameters), GetHistoricalPricesFromResponse);
         }
 
-        List<HistoricalPrice> GetHistoricalPricesFromResponse(HttpResponseMessage response)
+        private List<HistoricalPrice> GetHistoricalPricesFromResponse(HttpResponseMessage response)
         {
             return HistoricalPrice.GetListFromJson(response.Content.ReadAsStringAsync().Result) ?? new List<HistoricalPrice>();
         }
@@ -40,12 +40,12 @@ namespace EODHistoricalData.NET
             return ExecuteQuery(string.Format(RealTimeDataUrl, symbol, _apiToken), GetRealTimePrice);
         }
 
-        RealTimePrice GetRealTimePrice(HttpResponseMessage response)
+        private RealTimePrice GetRealTimePrice(HttpResponseMessage response)
         {
             return RealTimePrice.FromJson(response.Content.ReadAsStringAsync().Result);
         }
 
-        List<RealTimePrice> GetRealTimePrices(HttpResponseMessage response)
+        private List<RealTimePrice> GetRealTimePrices(HttpResponseMessage response)
         {
             return SerializeRealTimePrice.GetListFromJson(response.Content.ReadAsStringAsync().Result);
         }
