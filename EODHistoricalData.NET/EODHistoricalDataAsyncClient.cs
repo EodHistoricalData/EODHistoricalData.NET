@@ -232,6 +232,17 @@ namespace EODHistoricalData.NET
             return _exchangesDataAsyncClient.GetExchangesAsync();
         }
 
+        public Task<ExchangeDetails> GetExchangeDetailsAsync(string exchange, DateTime? startDate, DateTime? endDate)
+        {
+            if (string.IsNullOrEmpty(exchange))
+                throw new ArgumentException("Exchange is null or empty, cannot query exchange details.");
+
+            if (_exchangesDataAsyncClient == null)
+                _exchangesDataAsyncClient = new ExchangesDataAsyncClient(_apiToken, _useProxy);
+
+            return _exchangesDataAsyncClient.GetExchangeDetailsAsync(exchange, startDate, endDate);
+        }
+
         public Task<List<SearchInstrument>> SearchAsync(string isin)
         {
             _searchAsyncClient ??= new SearchAsyncClient(_apiToken, _useProxy);
