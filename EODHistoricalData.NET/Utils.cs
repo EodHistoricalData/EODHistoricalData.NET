@@ -26,5 +26,13 @@ namespace EODHistoricalData.NET
 
             return sb.ToString();
         }
+
+        internal static string GetDateParameterAsString(DateTime? date, string dateField = "date")
+        {
+            if (date.HasValue)
+              return $"&{dateField}={date.Value.ToString(EODHistoricalDataClient.DateFormat)}";
+
+            return string.Empty;
+        }
     }
 }

@@ -73,5 +73,98 @@ namespace EODHistoricalData.NET.Tests
                 Assert.IsTrue(holiday.Date >= startDate && holiday.Date <= endDate);
             }
         }
+
+        [TestMethod]
+        public async Task exchange_bulk_prices_returns_data_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+
+            var exchangeBulkPrices = await client.GetExchangeBulkPricesAsync("US", null);
+            Assert.IsNotNull(exchangeBulkPrices);
+            Assert.IsTrue(exchangeBulkPrices.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task exchange_bulk_splits_returns_data_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+
+            var exchangeBulkSplits = await client.GetExchangeBulkSplitsAsync("US", null);
+            Assert.IsNotNull(exchangeBulkSplits);
+            Assert.IsTrue(exchangeBulkSplits.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task exchange_bulk_dividends_returns_data_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+
+            var exchangeBulkDividends = await client.GetExchangeBulkPricesAsync("US", null);
+            Assert.IsNotNull(exchangeBulkDividends);
+            Assert.IsTrue(exchangeBulkDividends.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task exchange_bulk_prices_returns_symbol_data_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+
+            var exchangeBulkPrices = await client.GetExchangeBulkPricesAsync("US", null, "MSFT");
+            Assert.IsNotNull(exchangeBulkPrices);
+            Assert.IsTrue(exchangeBulkPrices.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task exchange_bulk_splits_returns_symbol_data_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+
+            var exchangeBulkSplits = await client.GetExchangeBulkSplitsAsync("US", null, "MSFT");
+            Assert.IsNotNull(exchangeBulkSplits);
+            Assert.IsTrue(exchangeBulkSplits.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task exchange_bulk_dividends_returns_symbols_data_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+
+            var exchangeBulkDividends = await client.GetExchangeBulkPricesAsync("US", null, "MSFT");
+            Assert.IsNotNull(exchangeBulkDividends);
+            Assert.IsTrue(exchangeBulkDividends.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task exchange_bulk_prices_returns_data_for_date_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+            var queryDate = new DateTime(2022, 2, 16);
+
+            var exchangeBulkPrices = await client.GetExchangeBulkPricesAsync("US", queryDate);
+            Assert.IsNotNull(exchangeBulkPrices);
+            Assert.IsTrue(exchangeBulkPrices.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task exchange_bulk_splits_returns_data_for_date_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+            var queryDate = new DateTime(2022, 2, 16);
+
+            var exchangeBulkSplits = await client.GetExchangeBulkSplitsAsync("US", queryDate);
+            Assert.IsNotNull(exchangeBulkSplits);
+            Assert.IsTrue(exchangeBulkSplits.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task exchange_bulk_dividends_returns_data_for_date_async()
+        {
+            using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
+            var queryDate = new DateTime(2022, 2, 16);
+
+            var exchangeBulkDividends = await client.GetExchangeBulkPricesAsync("US", queryDate);
+            Assert.IsNotNull(exchangeBulkDividends);
+            Assert.IsTrue(exchangeBulkDividends.Count > 0);
+        }
     }
 }

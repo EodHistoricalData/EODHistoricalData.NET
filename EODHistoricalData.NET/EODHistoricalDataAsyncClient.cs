@@ -243,6 +243,66 @@ namespace EODHistoricalData.NET
             return _exchangesDataAsyncClient.GetExchangeDetailsAsync(exchange, startDate, endDate);
         }
 
+        /// <summary>
+        /// Retrieve bulk EOD prices for a specified exchange.
+        /// Can optionally be limited to a set of symbols and/or a trading day.
+        /// </summary>
+        /// <param name="exchange">The exchange that its bulk EOD prices shall be obtained</param>
+        /// <param name="date">Optional. Day that EOD prices shall be obtained from. Will default to last trading day</param>
+        /// <param name="symbols">Optional. List of symbols to query. Will default to all symbols of the specified exchange</param>
+        /// <returns>List of bulk EOD prices from specified exchange</returns>
+        /// <exception cref="ArgumentException">Thrown when exchange parameter is null or empty</exception>
+        public Task<List<ExchangeBulkPrice>> GetExchangeBulkPricesAsync(string exchange, DateTime? date, params string[] symbols)
+        {
+            if (string.IsNullOrEmpty(exchange))
+                throw new ArgumentException("Exchange is null or empty, cannot query exchange bulk price data.");
+
+            if (_exchangesDataAsyncClient == null)
+                _exchangesDataAsyncClient = new ExchangesDataAsyncClient(_apiToken, _useProxy);
+
+            return _exchangesDataAsyncClient.GetExchangeBulkPricesAsync(exchange, date, symbols);
+        }
+
+        /// <summary>
+        /// Retrieve bulk EOD splits for a specified exchange.
+        /// Can optionally be limited to a set of symbols and/or a trading day.
+        /// </summary>
+        /// <param name="exchange">The exchange that its bulk EOD splits shall be obtained</param>
+        /// <param name="date">Optional. Day that EOD splits shall be obtained from. Will default to last trading day</param>
+        /// <param name="symbols">Optional. List of symbols to query. Will default to all symbols of the specified exchange</param>
+        /// <returns>List of bulk EOD splits from specified exchange</returns>
+        /// <exception cref="ArgumentException">Thrown when exchange parameter is null or empty</exception>
+        public Task<List<ExchangeBulkSplit>> GetExchangeBulkSplitsAsync(string exchange, DateTime? date, params string[] symbols)
+        {
+            if (string.IsNullOrEmpty(exchange))
+                throw new ArgumentException("Exchange is null or empty, cannot query exchange bulk split data.");
+
+            if (_exchangesDataAsyncClient == null)
+                _exchangesDataAsyncClient = new ExchangesDataAsyncClient(_apiToken, _useProxy);
+
+            return _exchangesDataAsyncClient.GetExchangeBulkSplitsAsync(exchange, date, symbols);
+        }
+
+        /// <summary>
+        /// Retrieve bulk EOD dividends for a specified exchange.
+        /// Can optionally be limited to a set of symbols and/or a trading day.
+        /// </summary>
+        /// <param name="exchange">The exchange that its bulk EOD dividends shall be obtained</param>
+        /// <param name="date">Optional. Day that EOD dividends shall be obtained from. Will default to last trading day</param>
+        /// <param name="symbols">Optional. List of symbols to query. Will default to all symbols of the specified exchange</param>
+        /// <returns>List of bulk EOD dividends from specified exchange</returns>
+        /// <exception cref="ArgumentException">Thrown when exchange parameter is null or empty</exception>
+        public Task<List<ExchangeBulkDividend>> GetExchangeBulkDividendsAsync(string exchange, DateTime? date, params string[] symbols)
+        {
+            if (string.IsNullOrEmpty(exchange))
+                throw new ArgumentException("Exchange is null or empty, cannot query exchange bulk dividend data.");
+
+            if (_exchangesDataAsyncClient == null)
+                _exchangesDataAsyncClient = new ExchangesDataAsyncClient(_apiToken, _useProxy);
+
+            return _exchangesDataAsyncClient.GetExchangeBulkDividendsAsync(exchange, date, symbols);
+        }
+
         public Task<List<SearchInstrument>> SearchAsync(string isin)
         {
             _searchAsyncClient ??= new SearchAsyncClient(_apiToken, _useProxy);
