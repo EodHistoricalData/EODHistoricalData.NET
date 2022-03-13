@@ -17,8 +17,8 @@ namespace EODHistoricalData.NET.Tests
         internal static string LargeExchange = "LSE";
         internal static string ValidIsinNumber = "AU0000071482";
         internal static string TestCompanyName = "apple";
-        internal static DateTime StartDate = DateTime.UtcNow.AddYears(-10).AddDays(-1).Date;
-        internal static DateTime EndDate = DateTime.UtcNow.AddYears(-5).AddDays(-1).Date;
+        internal static DateTime StartDate = new DateTime(2012, 3, 14);
+        internal static DateTime EndDate = new DateTime(2017, 3, 14);
         internal static DateTime OptionsStartDate = DateTime.UtcNow.AddYears(-1).AddDays(-2).Date;
         internal static DateTime OptionsEndDate = DateTime.UtcNow.AddMonths(-1).AddDays(-1).Date;
         internal static DateTime OptionsFuture3MonthEndDate = DateTime.UtcNow.AddMonths(3).Date;
