@@ -6,7 +6,7 @@ namespace EODHistoricalData.NET
 {
     internal class FundamentalDataClient : HttpApiClient
     {
-        private const string FundamentalUrl = @"https://eodhistoricaldata.com/api/fundamentals/{0}?api_token={1}";
+        private const string FundamentalUrl = @"https://eodhistoricaldata.com/api/fundamentals/{0}?api_token={1}&fmt=json";
         private const string ExchangeUrl = @"https://eodhistoricaldata.com/api/exchanges/{0}?api_token={1}&fmt=json";
         private const string BulkFundamentalUrl = @"https://eodhistoricaldata.com/api/bulk-fundamentals/{0}?api_token={1}&offset={2}&limit={3}&fmt=json";
         

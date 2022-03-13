@@ -120,13 +120,13 @@ namespace EODHistoricalData.NET
 
     public partial class Allocation
     {
-        [JsonProperty("Long_ % ")]
+        [JsonProperty("Long_%")]
         public decimal? Long { get; set; }
 
-        [JsonProperty("Short_ % ")]
+        [JsonProperty("Short_%")]
         public decimal? Short { get; set; }
 
-        [JsonProperty("Net_Assets_ % ")]
+        [JsonProperty("Net_Assets_%")]
         public decimal? NetAssets { get; set; }
     }
 
@@ -150,7 +150,7 @@ namespace EODHistoricalData.NET
         [JsonProperty("Region")]
         public string Region { get; set; }
 
-        [JsonProperty("Assets_ % ")]
+        [JsonProperty("Assets_%")]
         public decimal? Assets { get; set; }
     }
 
@@ -210,7 +210,7 @@ namespace EODHistoricalData.NET
 
     public partial class AllocWeight
     {
-        [JsonProperty("Equity_ % ")]
+        [JsonProperty("Equity_%")]
         public decimal? Equity { get; set; }
 
         [JsonProperty("Relative_to_Category")]

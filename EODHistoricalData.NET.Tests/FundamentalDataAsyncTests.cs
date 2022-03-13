@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 
 namespace EODHistoricalData.NET.Tests
@@ -19,6 +20,8 @@ namespace EODHistoricalData.NET.Tests
         {
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
             var fundamental = await client.GetFundamentalETFAsync(Consts.TestETF);
+            
+            Assert.IsNotNull(fundamental.EtfData.Top10_Holdings.First().Value.Assets);
             Assert.IsNotNull(fundamental);
         }
 
