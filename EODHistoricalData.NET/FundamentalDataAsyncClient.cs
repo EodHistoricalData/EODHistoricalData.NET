@@ -31,8 +31,7 @@ namespace EODHistoricalData.NET
                 limit = 500;
             }
 
-            var url = string.Format(BulkFundamentalUrl, exchange, _apiToken, offset, limit);
-            return ExecuteQueryAsync(url, GetBulkFundamentalStocksFromResponseAsync);
+            return ExecuteQueryAsync(string.Format(BulkFundamentalUrl, exchange, _apiToken, offset, limit), GetBulkFundamentalStocksFromResponseAsync);
         }
 
         private async Task<BulkFundamentalStocks> GetBulkFundamentalStocksFromResponseAsync(HttpResponseMessage response)
