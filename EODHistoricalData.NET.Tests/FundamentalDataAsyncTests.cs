@@ -47,7 +47,7 @@ namespace EODHistoricalData.NET.Tests
             using var client = new EODHistoricalDataAsyncClient(Consts.ApiToken, true);
             var instruments = await client.GetExchangeInstrumentsAsync(Consts.Exchange);
             Assert.IsNotNull(instruments);
-            Assert.IsNotNull(instruments.Count > 1000);
+            Assert.IsNotNull(instruments.Count > 500);
         }
     }
 }

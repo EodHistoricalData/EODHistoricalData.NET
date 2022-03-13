@@ -155,14 +155,14 @@ namespace EODHistoricalData.NET
         /// NASDAQ, NYSE (or ‘NYSE MKT’), BATS, and AMEX.
         /// All non-US exchanges supported as is.
         ///
-        /// By default offset = 0 and limit = 1000
+        /// By default offset = 0 and limit = 500
         /// </summary>
         /// <param name="exchange">The exchange code</param>
         /// <param name="offset">The number of records to skip</param>
-        /// <param name="limit">If the ‘limit’ parameter is bigger than 1000, it will be reset to 1000.</param>
+        /// <param name="limit">If the ‘limit’ parameter is bigger than 500, it will be reset to 500.</param>
         /// <returns></returns>
         [Obsolete("This Method is Deprecated, please use GetBulkFundamentalStocksAsync instead.", false)]
-        public IEnumerable<FundamentalStock> GetBulkFundamentalStocks(string exchange, int offset = 0, int limit = 1000)
+        public IEnumerable<FundamentalStock> GetBulkFundamentalStocks(string exchange, int offset = 0, int limit = 500)
         {
             if (_fundamentalDataClient == null)
                 _fundamentalDataClient = new FundamentalDataClient(_apiToken, _useProxy);

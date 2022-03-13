@@ -25,10 +25,10 @@ namespace EODHistoricalData.NET
         internal BulkFundamentalStocks GetBulkFundamentalsStocks(string exchange, int offset, int limit)
         {
             // https://eodhistoricaldata.com/financial-apis/stock-etfs-fundamental-data-feeds/#Bulk_Fundamentals_API
-            // If the ‘limit’ parameter is bigger than 1000, it will be reset to 1000.
-            if (limit > 1000)
+            // If the ‘limit’ parameter is bigger than 500, it will be reset to 500.
+            if (limit > 500)
             {
-                limit = 1000;
+                limit = 500;
             }
             return ExecuteQuery(string.Format(BulkFundamentalUrl, exchange, _apiToken, offset, limit), GetBulkFundamentalStocksFromResponse);
         }
