@@ -25,12 +25,12 @@ namespace EODHistoricalData.NET.Tests
         }
         
         [TestMethod]
-        public void bulk_fundamental_stocks_large_returns_data_no_greater_than_1000()
+        public void bulk_fundamental_stocks_large_returns_data_no_greater_than_500()
         {
             var client = new EODHistoricalDataClient(Consts.ApiToken, true);
             var bulkFundamentalStocks = client.GetBulkFundamentalStocks(Consts.LargeExchange, 0, 5000);
             Assert.IsNotNull(bulkFundamentalStocks);
-            Assert.AreEqual(1000, bulkFundamentalStocks.Count());
+            Assert.AreEqual(500, bulkFundamentalStocks.Count());
         }
         
         [TestMethod]
