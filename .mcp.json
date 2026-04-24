@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "bridge-business": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "bridge.mcp_server"],
+      "env": {
+        "BRIDGE_API_KEY": "${BRIDGE_API_KEY}",
+        "BRAIN_URL": "${BRAIN_URL_BUSINESS}",
+        "BRAIN_API_KEY": "${EODHD_BRAIN_KEY}"
+      }
+    }
+  }
+}
