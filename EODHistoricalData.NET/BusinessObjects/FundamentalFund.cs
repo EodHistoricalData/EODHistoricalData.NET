@@ -42,15 +42,6 @@ namespace EODHistoricalData.NET
         [JsonProperty("Share_Class_Net_Assets")]
         public long ShareClassNetAssets { get; set; }
 
-        [JsonProperty("Morning_Star_Rating")]
-        public long MorningStarRating { get; set; }
-
-        [JsonProperty("Morning_Star_Risk_Rating")]
-        public long MorningStarRiskRating { get; set; }
-
-        [JsonProperty("Morning_Star_Category")]
-        public string MorningStarCategory { get; set; }
-
         [JsonProperty("Incepton_Date")]
         public DateTimeOffset? InceptonDate { get; set; }
 

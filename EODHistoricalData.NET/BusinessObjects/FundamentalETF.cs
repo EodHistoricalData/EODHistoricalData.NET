@@ -93,9 +93,6 @@ namespace EODHistoricalData.NET
         [JsonProperty("Valuations_Growth")]
         public ValuationsGrowth ValuationsGrowth { get; set; }
 
-        [JsonProperty("MorningStar")]
-        public MorningStar MorningStar { get; set; }
-
         [JsonProperty("Performance")]
         public Performance Performance { get; set; }
     }
@@ -170,18 +167,6 @@ namespace EODHistoricalData.NET
 
         [JsonProperty("Micro")]
         public decimal? Micro { get; set; }
-    }
-
-    public partial class MorningStar
-    {
-        [JsonProperty("Ratio")]
-        public long Ratio { get; set; }
-
-        [JsonProperty("Category_Benchmark")]
-        public string CategoryBenchmark { get; set; }
-
-        [JsonProperty("Sustainability_Ratio")]
-        public long SustainabilityRatio { get; set; }
     }
 
     public partial class Performance
