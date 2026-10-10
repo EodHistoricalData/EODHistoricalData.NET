@@ -205,14 +205,8 @@ namespace EODHistoricalData.NET
         [JsonProperty("Valuations_Rates_Portfolio")]
         public ValuationsRates ValuationsRatesPortfolio { get; set; }
 
-        [JsonProperty("Valuations_Rates_To_Category")]
-        public ValuationsRates ValuationsRatesToCategory { get; set; }
-
         [JsonProperty("Growth_Rates_Portfolio")]
         public GrowthRates GrowthRatesPortfolio { get; set; }
-
-        [JsonProperty("Growth_Rates_To_Category")]
-        public GrowthRates GrowthRatesToCategory { get; set; }
     }
 
     public partial class GrowthRates
